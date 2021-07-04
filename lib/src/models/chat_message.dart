@@ -39,7 +39,7 @@ class ChatMessage {
 
   /// Allows to set buttons that could help with implementing custom
   /// actions in message container.
-  List<Widget>? buttons;
+  List<Reply>? buttons;
 
   ChatMessage(
       {String? id,

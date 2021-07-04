@@ -64,26 +64,24 @@ class _MyHomePageState extends State<MyHomePage> {
         uid: "25649654",
       ),
       createdAt: DateTime.now(),
-      quickReplies: QuickReplies(
-        values: <Reply>[
-          Reply(
-            title: "How to",
-            value: "How to",
-          ),
-          Reply(
-            title: "Check rates",
-            value: "Check rates",
-          ),
-          Reply(
-            title: "Set alert",
-            value: "Set alert",
-          ),
-          Reply(
-            title: "Disable alert",
-            value: "Disable alert",
-          ),
-        ],
-      ),
+      buttons: <Reply>[
+        Reply(
+          title: "How to",
+          value: "How to",
+        ),
+        Reply(
+          title: "Check rates",
+          value: "Check rates",
+        ),
+        Reply(
+          title: "Set alert",
+          value: "Set alert",
+        ),
+        Reply(
+          title: "Disable alert",
+          value: "Disable alert",
+        ),
+      ],
     ),
   ];
 

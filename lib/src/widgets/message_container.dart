@@ -42,7 +42,7 @@ class MessageContainer extends StatelessWidget {
 
   /// Provides a list of buttons to allow the usage of adding buttons to
   /// the bottom of the message
-  final List<Widget>? buttons;
+  final List<Reply>? buttons;
 
   /// [messageButtonsBuilder] function takes a function with this
   /// structure [List<Widget> Function()] to render the buttons inside
@@ -90,78 +90,122 @@ class MessageContainer extends StatelessWidget {
         BoxConstraints(
             maxHeight: MediaQuery.of(context).size.height,
             maxWidth: MediaQuery.of(context).size.width);
-    return ConstrainedBox(
-      constraints: BoxConstraints(
-        maxWidth: constraints.maxWidth * 0.8,
-      ),
-      child: Container(
-        decoration: messageDecorationBuilder?.call(message, isUser) ??
-            messageContainerDecoration?.copyWith(
-              color: message.user.containerColor != null
-                  ? message.user.containerColor
-                  : messageContainerDecoration!.color,
-            ) ??
-            BoxDecoration(
-              color: message.user.containerColor ??
-                  (isUser
-                      ? Theme.of(context).accentColor
-                      : Color.fromRGBO(225, 225, 225, 1)),
-              borderRadius: BorderRadius.circular(5.0),
-            ),
-        margin: EdgeInsets.only(
-          bottom: 5.0,
-        ),
-        padding: messagePadding,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment:
-              isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-          children: <Widget>[
-            if (this.textBeforeImage)
-              _buildMessageText()
-            else
-              _buildMessageImage(),
-            if (this.textBeforeImage)
-              _buildMessageImage()
-            else
-              _buildMessageText(),
-            if (buttons != null)
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment:
-                    isUser ? MainAxisAlignment.end : MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: buttons!,
-              )
-            else if (messageButtonsBuilder != null)
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment:
-                    isUser ? MainAxisAlignment.end : MainAxisAlignment.start,
-                children: messageButtonsBuilder!(message),
-                mainAxisSize: MainAxisSize.min,
-              ),
-            messageTimeBuilder?.call(
-                  timeFormat?.format(message.createdAt) ??
-                      DateFormat('HH:mm:ss').format(message.createdAt),
-                  message,
+    return Column(
+      crossAxisAlignment:
+          isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+      children: [
+        ConstrainedBox(
+          constraints: BoxConstraints(
+            maxWidth: constraints.maxWidth * 0.8,
+          ),
+          child: Container(
+            decoration: messageDecorationBuilder?.call(message, isUser) ??
+                messageContainerDecoration?.copyWith(
+                  color: message.user.containerColor != null
+                      ? message.user.containerColor
+                      : messageContainerDecoration!.color,
                 ) ??
-                Padding(
-                  padding: EdgeInsets.only(top: 5.0),
-                  child: Text(
-                    timeFormat != null
-                        ? timeFormat!.format(message.createdAt)
-                        : DateFormat('HH:mm:ss').format(message.createdAt),
-                    style: TextStyle(
-                      fontSize: 10.0,
-                      color: message.user.color ??
-                          (isUser ? Colors.white70 : Colors.black87),
-                    ),
+                BoxDecoration(
+                  color: message.user.containerColor ??
+                      (isUser
+                          ? Theme.of(context).accentColor
+                          : Color.fromRGBO(225, 225, 225, 1)),
+                  borderRadius: BorderRadius.circular(5.0),
+                ),
+            margin: EdgeInsets.only(
+              bottom: 5.0,
+            ),
+            padding: messagePadding,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment:
+                  isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+              children: <Widget>[
+                // if (this.textBeforeImage)
+                //   _buildMessageText()
+                // else
+                //   _buildMessageImage(),
+                // if (this.textBeforeImage)
+                //   _buildMessageImage()
+                // else
+                _buildMessageText(),
+
+                if (messageButtonsBuilder != null)
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: isUser
+                        ? MainAxisAlignment.end
+                        : MainAxisAlignment.start,
+                    children: messageButtonsBuilder!(message),
+                    mainAxisSize: MainAxisSize.min,
                   ),
-                )
-          ],
+                messageTimeBuilder?.call(
+                      timeFormat?.format(message.createdAt) ??
+                          DateFormat('HH:mm:ss').format(message.createdAt),
+                      message,
+                    ) ??
+                    Padding(
+                      padding: EdgeInsets.only(top: 5.0),
+                      child: Text(
+                        timeFormat != null
+                            ? timeFormat!.format(message.createdAt)
+                            : DateFormat('HH:mm:ss').format(message.createdAt),
+                        style: TextStyle(
+                          fontSize: 10.0,
+                          color: message.user.color ??
+                              (isUser ? Colors.white70 : Colors.black87),
+                        ),
+                      ),
+                    )
+              ],
+            ),
+          ),
         ),
-      ),
+        _buildMessageImage(),
+        if (buttons != null)
+          SizedBox(
+            height: 60,
+            child: CustomScrollView(
+              scrollDirection: Axis.horizontal,
+              slivers: [
+                SliverToBoxAdapter(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: isUser
+                        ? MainAxisAlignment.end
+                        : MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: buttons!
+                        .asMap()
+                        .map(
+                          (index, reply) {
+                            return MapEntry(
+                              index,
+                              Container(
+                                padding: EdgeInsets.all(12.0),
+                                decoration: BoxDecoration(
+                                  color: Color(0xFFFDDA25),
+                                  borderRadius: BorderRadius.circular(12.0),
+                                ),
+                                margin: EdgeInsets.only(
+                                  left: 16.0,
+                                  bottom: 16.0,
+                                ),
+                                child: Text(
+                                  reply.value ?? '',
+                                ),
+                              ),
+                            );
+                          },
+                        )
+                        .values
+                        .toList(),
+                  ),
+                ),
+              ],
+            ),
+          ),
+      ],
     );
   }
 
