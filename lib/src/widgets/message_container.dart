@@ -2,6 +2,12 @@ part of dash_chat;
 
 /// MessageContainer is just a wrapper around [Text], [Image]
 /// component to present the message
+ enum payload { 
+   none, 
+   dropDown, 
+   cardsCarousel, 
+   buttons 
+}  
 class MessageContainer extends StatelessWidget {
   /// Message Object that will be rendered
   /// Takes a [ChatMessage] object
@@ -43,6 +49,9 @@ class MessageContainer extends StatelessWidget {
   /// Provides a list of buttons to allow the usage of adding buttons to
   /// the bottom of the message
   final List<Reply>? buttons;
+ 
+
+
 
   /// [messageButtonsBuilder] function takes a function with this
   /// structure [List<Widget> Function()] to render the buttons inside
