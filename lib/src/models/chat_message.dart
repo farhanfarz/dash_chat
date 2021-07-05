@@ -41,17 +41,21 @@ class ChatMessage {
   /// actions in message container.
   List<Reply>? buttons;
 
-  ChatMessage(
-      {String? id,
-      required this.text,
-      required this.user,
-      this.image,
-      this.video,
-      this.quickReplies,
-      String Function()? messageIdGenerator,
-      DateTime? createdAt,
-      this.customProperties,
-      this.buttons}) {
+  PayloadType? payloadType;
+
+  ChatMessage({
+    String? id,
+    required this.text,
+    required this.user,
+    this.image,
+    this.video,
+    this.quickReplies,
+    String Function()? messageIdGenerator,
+    DateTime? createdAt,
+    this.customProperties,
+    this.buttons,
+    this.payloadType,
+  }) {
     this.createdAt = createdAt != null ? createdAt : DateTime.now();
     this.id = id ?? messageIdGenerator?.call() ?? Uuid().v4().toString();
   }
@@ -67,6 +71,7 @@ class ChatMessage {
         ? QuickReplies.fromJson(json['quickReplies'])
         : null;
     customProperties = json['customProperties'] as Map<String, dynamic>?;
+    payloadType = PayloadType.none;
   }
 
   Map<String, dynamic> toJson() {

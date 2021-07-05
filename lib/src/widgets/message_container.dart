@@ -2,12 +2,8 @@ part of dash_chat;
 
 /// MessageContainer is just a wrapper around [Text], [Image]
 /// component to present the message
- enum payload { 
-   none, 
-   dropDown, 
-   cardsCarousel, 
-   buttons 
-}  
+enum PayloadType { none, dropDown, cardsCarousel, buttons }
+
 class MessageContainer extends StatelessWidget {
   /// Message Object that will be rendered
   /// Takes a [ChatMessage] object
@@ -49,9 +45,7 @@ class MessageContainer extends StatelessWidget {
   /// Provides a list of buttons to allow the usage of adding buttons to
   /// the bottom of the message
   final List<Reply>? buttons;
- 
-
-
+  final PayloadType payloadType;
 
   /// [messageButtonsBuilder] function takes a function with this
   /// structure [List<Widget> Function()] to render the buttons inside
@@ -89,6 +83,7 @@ class MessageContainer extends StatelessWidget {
     required this.isUser,
     this.messageButtonsBuilder,
     this.buttons,
+    this.payloadType = PayloadType.none,
     this.messagePadding = const EdgeInsets.all(8.0),
     this.messageDecorationBuilder,
   });
@@ -173,7 +168,7 @@ class MessageContainer extends StatelessWidget {
             ),
           ),
         _buildMessageImage(),
-        if (buttons != null)
+        if (payloadType == PayloadType.buttons)
           SizedBox(
             height: 60,
             child: CustomScrollView(
@@ -215,6 +210,70 @@ class MessageContainer extends StatelessWidget {
                 ),
               ],
             ),
+          ),
+        if (payloadType == PayloadType.cardsCarousel)
+          CarouselSlider(
+            options: CarouselOptions(
+              autoPlay: true,
+              aspectRatio: 2.0,
+              enlargeCenterPage: true,
+            ),
+            items: buttons!
+                .asMap()
+                .map(
+                  (index, reply) {
+                    return MapEntry(
+                      index,
+                      Container(
+                        child: Container(
+                          margin: EdgeInsets.all(5.0),
+                          child: ClipRRect(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(5.0)),
+                              child: Stack(
+                                children: <Widget>[
+                                  FadeInImage.assetNetwork(
+                                    fit: BoxFit.cover,
+                                    placeholder: '',
+                                    image: reply.iconPath,
+                                    width: 1000,
+                                  ),
+                                  Positioned(
+                                    bottom: 0.0,
+                                    left: 0.0,
+                                    right: 0.0,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Color.fromARGB(200, 0, 0, 0),
+                                            Color.fromARGB(0, 0, 0, 0)
+                                          ],
+                                          begin: Alignment.bottomCenter,
+                                          end: Alignment.topCenter,
+                                        ),
+                                      ),
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 10.0, horizontal: 20.0),
+                                      child: Text(
+                                        reply.title,
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )),
+                        ),
+                      ),
+                    );
+                  },
+                )
+                .values
+                .toList(),
           ),
       ],
     );

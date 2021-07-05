@@ -296,6 +296,10 @@ class _MessageListViewState extends State<MessageListView> {
                                                       widget.parsePatterns,
                                                   buttons: widget
                                                       .messages[i].buttons,
+                                                  payloadType: widget
+                                                          .messages[i]
+                                                          .payloadType ??
+                                                      PayloadType.none,
                                                   messageButtonsBuilder: widget
                                                       .messageButtonsBuilder,
                                                   textBeforeImage:

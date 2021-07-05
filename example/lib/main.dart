@@ -50,6 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
   List<ChatMessage> messages = <ChatMessage>[
     ChatMessage(
       text: "Hello",
+
       user: ChatUser(
         name: "Fayeed",
         uid: "123456789",
@@ -64,22 +65,31 @@ class _MyHomePageState extends State<MyHomePage> {
         uid: "25649654",
       ),
       createdAt: DateTime.now(),
+      payloadType: PayloadType.cardsCarousel,
       buttons: <Reply>[
         Reply(
           title: "How to",
           value: "How to",
+          iconPath:
+              "https://silxdigital.com/wp-content/uploads/2019/09/digital-ads-promo-icon.png",
         ),
         Reply(
           title: "Check rates",
           value: "Check rates",
+          iconPath:
+              "https://silxdigital.com/wp-content/uploads/2019/09/digital-ads-promo-icon.png",
         ),
         Reply(
           title: "Set alert",
           value: "Set alert",
+          iconPath:
+              "https://silxdigital.com/wp-content/uploads/2019/09/digital-ads-promo-icon.png",
         ),
         Reply(
           title: "Disable alert",
           value: "Disable alert",
+          iconPath:
+              "https://silxdigital.com/wp-content/uploads/2019/09/digital-ads-promo-icon.png",
         ),
       ],
     ),

@@ -1,6 +1,7 @@
 part of dash_chat;
 
 /// Used for providing replies in quick replies
+
 class Reply {
   /// Message shown to the user
   late String title;
@@ -9,7 +10,7 @@ class Reply {
   /// It's an [optioanl] paramter
   String? value;
 
-  String? iconPath;
+  late String iconPath;
 
   /// If no messageId is provided it will use [UUID v4] to
   /// set a default id for that message
@@ -18,9 +19,8 @@ class Reply {
   Reply({
     required this.title,
     String? messageId,
-    String? iconPath,
+    required this.iconPath,
     this.value,
-
   }) {
     this.messageId = messageId ?? Uuid().v4().toString();
   }
@@ -29,6 +29,7 @@ class Reply {
     title = json['title'];
     value = json['value'];
     messageId = json['messageId'];
+    iconPath = json['iconPath'];
   }
 
   Map<String, dynamic> toJson() {
@@ -37,6 +38,7 @@ class Reply {
     data['messageId'] = messageId;
     data['title'] = title;
     data['value'] = value;
+    data['iconPath'] = iconPath;
 
     return data;
   }

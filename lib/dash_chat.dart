@@ -9,6 +9,7 @@ import 'package:uuid/uuid.dart';
 import 'package:intl/intl.dart' hide TextDirection;
 import 'package:flutter_parsed_text/flutter_parsed_text.dart';
 import 'package:transparent_image/transparent_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 export 'package:intl/intl.dart' hide TextDirection;
 export 'package:flutter_parsed_text/flutter_parsed_text.dart';
