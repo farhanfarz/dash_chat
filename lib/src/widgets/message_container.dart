@@ -238,8 +238,10 @@ class MessageContainer extends StatelessWidget {
                                   //   image: reply.iconPath,
                                   //   width: 1000,
                                   // ),
-                                  Image.network(reply.iconPath,
-                                      fit: BoxFit.cover, width: 1000.0),
+                                  if (reply.iconPath != null &&
+                                      reply.iconPath.isNotEmpty)
+                                    Image.network(reply.iconPath,
+                                        fit: BoxFit.cover, width: 1000.0),
 
                                   Positioned(
                                     bottom: 0.0,
