@@ -2,7 +2,7 @@ part of dash_chat;
 
 /// MessageContainer is just a wrapper around [Text], [Image]
 /// component to present the message
-enum PayloadType { none, dropDown, cardsCarousel, buttons }
+enum PayloadType { none, dropDown, cardsCarousel, buttons, quickReplies }
 
 class MessageContainer extends StatelessWidget {
   /// Message Object that will be rendered
@@ -168,7 +168,7 @@ class MessageContainer extends StatelessWidget {
             ),
           ),
         _buildMessageImage(),
-        if (payloadType == PayloadType.buttons)
+        if (payloadType == PayloadType.quickReplies)
           SizedBox(
             height: 60,
             child: CustomScrollView(
