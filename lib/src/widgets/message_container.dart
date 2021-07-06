@@ -211,7 +211,7 @@ class MessageContainer extends StatelessWidget {
               ],
             ),
           ),
-        if (payloadType == PayloadType.cardsCarousel)
+        if (payloadType == PayloadType.cardsCarousel && buttons != null)
           CarouselSlider(
             options: CarouselOptions(
               autoPlay: true,
@@ -224,56 +224,59 @@ class MessageContainer extends StatelessWidget {
                   (index, reply) {
                     return MapEntry(
                       index,
-                      Container(
-                        child: Container(
-                          margin: EdgeInsets.all(5.0),
-                          child: ClipRRect(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(5.0)),
-                              child: Stack(
-                                children: <Widget>[
-                                  // FadeInImage.memoryNetwork(
-                                  //   fit: BoxFit.cover,
-                                  //   placeholder: kTransparentImage,
-                                  //   image: reply.iconPath,
-                                  //   width: 1000,
-                                  // ),
-                                  if (reply.iconPath != null &&
-                                      reply.iconPath.isNotEmpty)
-                                    Image.network(reply.iconPath,
-                                        fit: BoxFit.cover, width: 1000.0),
+                      reply != null
+                          ? Container(
+                              child: Container(
+                                margin: EdgeInsets.all(5.0),
+                                child: ClipRRect(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(5.0)),
+                                    child: Stack(
+                                      children: <Widget>[
+                                        // FadeInImage.memoryNetwork(
+                                        //   fit: BoxFit.cover,
+                                        //   placeholder: kTransparentImage,
+                                        //   image: reply.iconPath,
+                                        //   width: 1000,
+                                        // ),
+                                        if (reply.iconPath != null &&
+                                            reply.iconPath!.isNotEmpty)
+                                          Image.network(reply.iconPath!,
+                                              fit: BoxFit.cover, width: 1000.0),
 
-                                  Positioned(
-                                    bottom: 0.0,
-                                    left: 0.0,
-                                    right: 0.0,
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        gradient: LinearGradient(
-                                          colors: [
-                                            Color.fromARGB(200, 0, 0, 0),
-                                            Color.fromARGB(0, 0, 0, 0)
-                                          ],
-                                          begin: Alignment.bottomCenter,
-                                          end: Alignment.topCenter,
+                                        Positioned(
+                                          bottom: 0.0,
+                                          left: 0.0,
+                                          right: 0.0,
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              gradient: LinearGradient(
+                                                colors: [
+                                                  Color.fromARGB(200, 0, 0, 0),
+                                                  Color.fromARGB(0, 0, 0, 0)
+                                                ],
+                                                begin: Alignment.bottomCenter,
+                                                end: Alignment.topCenter,
+                                              ),
+                                            ),
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 10.0,
+                                                horizontal: 20.0),
+                                            child: Text(
+                                              reply.title,
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 20.0,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
                                         ),
-                                      ),
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: 10.0, horizontal: 20.0),
-                                      child: Text(
-                                        reply.title,
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 20.0,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              )),
-                        ),
-                      ),
+                                      ],
+                                    )),
+                              ),
+                            )
+                          : SizedBox(),
                     );
                   },
                 )

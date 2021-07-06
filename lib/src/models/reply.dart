@@ -10,7 +10,7 @@ class Reply {
   /// It's an [optioanl] paramter
   String? value;
 
-  late String iconPath;
+  String? iconPath;
 
   /// If no messageId is provided it will use [UUID v4] to
   /// set a default id for that message
@@ -19,7 +19,7 @@ class Reply {
   Reply({
     required this.title,
     String? messageId,
-    required this.iconPath,
+    this.iconPath,
     this.value,
   }) {
     this.messageId = messageId ?? Uuid().v4().toString();
