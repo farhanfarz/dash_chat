@@ -232,9 +232,9 @@ class MessageContainer extends StatelessWidget {
                                   BorderRadius.all(Radius.circular(5.0)),
                               child: Stack(
                                 children: <Widget>[
-                                  FadeInImage.assetNetwork(
+                                  FadeInImage.memoryNetwork(
                                     fit: BoxFit.cover,
-                                    placeholder: '',
+                                    placeholder: kTransparentImage,
                                     image: reply.iconPath,
                                     width: 1000,
                                   ),
