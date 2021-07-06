@@ -211,6 +211,74 @@ class MessageContainer extends StatelessWidget {
               ],
             ),
           ),
+        if (payloadType == PayloadType.buttons)
+          Container(
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: GridView.builder(
+                  itemCount: buttons!.length,
+                  shrinkWrap: true,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    // mainAxisSpacing: 5.0,
+                    // crossAxisSpacing: 5.0,
+                  ),
+                  itemBuilder: (BuildContext context, int index) {
+                    var item = buttons![index];
+                    return Container(
+                      height: 60,
+                      margin: EdgeInsets.all(7),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(15.0),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color(0xFFD2DEE2).withOpacity(0.4),
+                            blurRadius: 30.0, // soften the shadow
+                            spreadRadius: 0.0, //extend the shadow
+                            offset: Offset(
+                              0.0, // Move to right 10  horizontally
+                              8.0, // Move to bottom 10 Vertically
+                            ),
+                          ),
+                        ],
+                      ),
+                      child: Container(
+                        padding: EdgeInsets.only(left: 15, top: 15),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              width: 44,
+                              height: 44,
+                              child: FadeInImage.memoryNetwork(
+                                height: 44,
+                                width: 44,
+                                fit: BoxFit.contain,
+                                placeholder: kTransparentImage,
+                                image: item.iconPath ?? '',
+                              ),
+                              // FadeInImage.assetNetwork(
+                              //   fit: BoxFit.cover,
+                              //   placeholder: ,
+                              //   image: item.iconPath ?? '',
+                              // ),
+                            ),
+                            Text(
+                              item.title,
+                              // style: Theme.of(context).textTheme.subtitle1.copyWith(
+                              //       color: Color(0xDE05046A),
+                              //       fontSize: 15.sp,
+                              //     ),
+                            )
+                          ],
+                        ),
+                      ),
+                    );
+                  }),
+            ),
+          ),
         if (payloadType == PayloadType.cardsCarousel && buttons != null)
           CarouselSlider(
             options: CarouselOptions(
