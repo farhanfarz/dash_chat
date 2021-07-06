@@ -199,6 +199,11 @@ class MessageContainer extends StatelessWidget {
                                 ),
                                 child: Text(
                                   reply.value ?? '',
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'SF-UI-Display-Medium',
+                                  ),
                                 ),
                               ),
                             );
@@ -216,12 +221,11 @@ class MessageContainer extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(15.0),
               child: GridView.builder(
+                  padding: EdgeInsets.only(bottom: 120),
                   itemCount: buttons!.length,
                   shrinkWrap: true,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    // mainAxisSpacing: 5.0,
-                    // crossAxisSpacing: 5.0,
                   ),
                   itemBuilder: (BuildContext context, int index) {
                     var item = buttons![index];
@@ -244,9 +248,9 @@ class MessageContainer extends StatelessWidget {
                         ],
                       ),
                       child: Container(
-                        padding: EdgeInsets.only(left: 15, top: 15),
+                        padding: EdgeInsets.only(left: 15, top: 15, bottom: 15),
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
@@ -259,18 +263,13 @@ class MessageContainer extends StatelessWidget {
                                 placeholder: kTransparentImage,
                                 image: item.iconPath ?? '',
                               ),
-                              // FadeInImage.assetNetwork(
-                              //   fit: BoxFit.cover,
-                              //   placeholder: ,
-                              //   image: item.iconPath ?? '',
-                              // ),
                             ),
                             Text(
                               item.title,
-                              // style: Theme.of(context).textTheme.subtitle1.copyWith(
-                              //       color: Color(0xDE05046A),
-                              //       fontSize: 15.sp,
-                              //     ),
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w600,
+                                  color: Color(0xDE05046A)),
                             )
                           ],
                         ),

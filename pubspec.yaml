@@ -20,11 +20,34 @@ dev_dependencies:
     sdk: flutter
 
 # The following section is specific to Flutter.
+
 flutter:
+  uses-material-design: true
   # To add assets to your package, add an assets section, like this:
-  # assets:
-  #  - images/avatar.png
+  assets:
+   - assets/images/
    
+  fonts:
+    - family: SF UI Display
+      fonts:
+        - asset: assets/fonts/SF-UI-Display-Thin.ttf
+          weight: 100
+        - asset: assets/fonts/SF-UI-Display-Ultralight.ttf
+          weight: 200    
+        - asset: assets/fonts/SF-UI-Display-Light.ttf
+          weight: 300
+        - asset: assets/fonts/SF-UI-Display-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/SF-UI-Display-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/SF-UI-Display-Semibold.ttf
+          weight: 600
+        - asset: assets/fonts/SF-UI-Display-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/SF-UI-Display-Heavy.ttf
+          weight: 800
+        - asset: assets/fonts/SF-UI-Display-Black.ttf
+          weight: 900
   #
   # For details regarding assets in packages, see
   # https://flutter.dev/assets-and-images/#from-packages
