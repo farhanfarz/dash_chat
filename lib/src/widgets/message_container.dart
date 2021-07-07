@@ -385,7 +385,6 @@ class _MessageContainerState extends State<MessageContainer> {
                     style: TextStyle(fontSize: 30),
                   ),
                 );
-                
               },
             ),
           ),
