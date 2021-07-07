@@ -65,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
         uid: "25649654",
       ),
       createdAt: DateTime.now(),
-      payloadType: PayloadType.dropDown,
+      payloadType: PayloadType.gridCarousel,
       buttons: <Reply>[
         Reply(
           title: "How to",

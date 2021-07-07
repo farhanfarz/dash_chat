@@ -2,7 +2,15 @@ part of dash_chat;
 
 /// MessageContainer is just a wrapper around [Text], [Image]
 /// component to present the message
-enum PayloadType { none, dropDown, cardsCarousel, buttons, quickReplies }
+enum PayloadType {
+  none,
+  gridCarousel,
+  cardsCarousel,
+  buttons,
+  quickReplies,
+  video,
+  card,
+}
 
 class MessageContainer extends StatefulWidget {
   /// Message Object that will be rendered
@@ -363,7 +371,7 @@ class _MessageContainerState extends State<MessageContainer> {
                 .values
                 .toList(),
           ),
-        if (widget.payloadType == PayloadType.dropDown)
+        if (widget.payloadType == PayloadType.gridCarousel)
           Container(
             padding: EdgeInsets.only(top: 10, bottom: 10),
             child: SizedBox(
@@ -371,7 +379,7 @@ class _MessageContainerState extends State<MessageContainer> {
               height: 330,
               child: GridView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: dummyData.length,
+                itemCount: widget.buttons!.length,
                 gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                   maxCrossAxisExtent: 74,
                   childAspectRatio: 0.35,
@@ -379,6 +387,7 @@ class _MessageContainerState extends State<MessageContainer> {
                   mainAxisSpacing: 10,
                 ),
                 itemBuilder: (context, index) {
+                  var item = widget.buttons![index];
                   return Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -399,12 +408,12 @@ class _MessageContainerState extends State<MessageContainer> {
                     alignment: Alignment.center,
                     child: ListTile(
                       leading: Image.network(
-                        "https://i.postimg.cc/4xqDGsS0/af.png",
+                        item.iconPath ?? '',
                         height: 44.0,
                         width: 44.0,
                       ),
                       title: Text(
-                        "United Arab Emirates dirham",
+                        item.title,
                         style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w600,
@@ -414,7 +423,7 @@ class _MessageContainerState extends State<MessageContainer> {
                       subtitle: Container(
                         padding: EdgeInsets.only(top: 8),
                         child: Text(
-                          "AED",
+                          item.value ?? '',
                           style: TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.w500,
@@ -429,6 +438,28 @@ class _MessageContainerState extends State<MessageContainer> {
                     // ),
                   );
                 },
+              ),
+            ),
+          ),
+        if (widget.payloadType == PayloadType.video)
+          Padding(
+            padding: EdgeInsets.only(left: 12.0, right: 12),
+            child: Container(
+              width: 1,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(15.0),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0xFFD2DEE2).withOpacity(0.4),
+                    blurRadius: 30.0, // soften the shadow
+                    spreadRadius: 0.0, //extend the shadow
+                    offset: Offset(
+                      0.0, // Move to right 10  horizontally
+                      8.0, // Move to bottom 10 Vertically
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
