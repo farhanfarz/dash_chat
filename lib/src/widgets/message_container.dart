@@ -364,28 +364,72 @@ class _MessageContainerState extends State<MessageContainer> {
                 .toList(),
           ),
         if (widget.payloadType == PayloadType.dropDown)
-          SizedBox(
-            width: double.infinity,
-            height: 330,
-            child: GridView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: dummyData.length,
-              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 74,
-                childAspectRatio: 0.35,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
+          Container(
+            padding: EdgeInsets.only(top: 10, bottom: 10),
+            child: SizedBox(
+              width: double.infinity,
+              height: 330,
+              child: GridView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: dummyData.length,
+                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 74,
+                  childAspectRatio: 0.35,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                ),
+                itemBuilder: (context, index) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(15),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color(0xFFD2DEE2).withOpacity(0.4),
+                          blurRadius: 30.0, // soften the shadow
+                          spreadRadius: 0.0, //extend the shadow
+                          offset: Offset(
+                            0.0, // Move to right 10  horizontally
+                            8.0, // Move to bottom 10 Vertically
+                          ),
+                        ),
+                      ],
+                    ),
+                    //color: Colors.white,
+                    alignment: Alignment.center,
+                    child: ListTile(
+                      leading: Image.network(
+                        "https://i.postimg.cc/4xqDGsS0/af.png",
+                        height: 44.0,
+                        width: 44.0,
+                      ),
+                      title: Text(
+                        "United Arab Emirates dirham",
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xDE05046A),
+                        ),
+                      ),
+                      subtitle: Container(
+                        padding: EdgeInsets.only(top: 8),
+                        child: Text(
+                          "AED",
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xDE05046A),
+                          ),
+                        ),
+                      ),
+                    ),
+                    // child: Text(
+                    //   dummyData[index],
+                    //   style: TextStyle(fontSize: 30),
+                    // ),
+                  );
+                },
               ),
-              itemBuilder: (context, index) {
-                return Container(
-                  color: Colors.amber,
-                  alignment: Alignment.center,
-                  child: Text(
-                    dummyData[index],
-                    style: TextStyle(fontSize: 30),
-                  ),
-                );
-              },
             ),
           ),
       ],
