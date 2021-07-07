@@ -4,7 +4,7 @@ part of dash_chat;
 /// component to present the message
 enum PayloadType { none, dropDown, cardsCarousel, buttons, quickReplies }
 
-class MessageContainer extends StatelessWidget {
+class MessageContainer extends StatefulWidget {
   /// Message Object that will be rendered
   /// Takes a [ChatMessage] object
   final ChatMessage message;
@@ -89,30 +89,37 @@ class MessageContainer extends StatelessWidget {
   });
 
   @override
+  _MessageContainerState createState() => _MessageContainerState();
+}
+
+class _MessageContainerState extends State<MessageContainer> {
+  final List dummyData = List.generate(50, (index) => '$index');
+  @override
   Widget build(BuildContext context) {
-    final constraints = this.constraints ??
+    final constraints = this.widget.constraints ??
         BoxConstraints(
             maxHeight: MediaQuery.of(context).size.height,
             maxWidth: MediaQuery.of(context).size.width);
     return Column(
       crossAxisAlignment:
-          isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+          widget.isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
       children: [
-        if (message.text != null && message.text!.isNotEmpty)
+        if (widget.message.text != null && widget.message.text!.isNotEmpty)
           ConstrainedBox(
             constraints: BoxConstraints(
               maxWidth: constraints.maxWidth * 0.8,
             ),
             child: Container(
-              decoration: messageDecorationBuilder?.call(message, isUser) ??
-                  messageContainerDecoration?.copyWith(
-                    color: message.user.containerColor != null
-                        ? message.user.containerColor
-                        : messageContainerDecoration!.color,
+              decoration: widget.messageDecorationBuilder
+                      ?.call(widget.message, widget.isUser) ??
+                  widget.messageContainerDecoration?.copyWith(
+                    color: widget.message.user.containerColor != null
+                        ? widget.message.user.containerColor
+                        : widget.messageContainerDecoration!.color,
                   ) ??
                   BoxDecoration(
-                    color: message.user.containerColor ??
-                        (isUser
+                    color: widget.message.user.containerColor ??
+                        (widget.isUser
                             ? Theme.of(context).accentColor
                             : Color.fromRGBO(225, 225, 225, 1)),
                     borderRadius: BorderRadius.circular(5.0),
@@ -120,11 +127,12 @@ class MessageContainer extends StatelessWidget {
               margin: EdgeInsets.only(
                 bottom: 5.0,
               ),
-              padding: messagePadding,
+              padding: widget.messagePadding,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment:
-                    isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+                crossAxisAlignment: widget.isUser
+                    ? CrossAxisAlignment.end
+                    : CrossAxisAlignment.start,
                 children: <Widget>[
                   // if (this.textBeforeImage)
                   //   _buildMessageText()
@@ -135,31 +143,35 @@ class MessageContainer extends StatelessWidget {
                   // else
                   _buildMessageText(),
 
-                  if (messageButtonsBuilder != null)
+                  if (widget.messageButtonsBuilder != null)
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: isUser
+                      mainAxisAlignment: widget.isUser
                           ? MainAxisAlignment.end
                           : MainAxisAlignment.start,
-                      children: messageButtonsBuilder!(message),
+                      children: widget.messageButtonsBuilder!(widget.message),
                       mainAxisSize: MainAxisSize.min,
                     ),
-                  messageTimeBuilder?.call(
-                        timeFormat?.format(message.createdAt) ??
-                            DateFormat('HH:mm:ss').format(message.createdAt),
-                        message,
+                  widget.messageTimeBuilder?.call(
+                        widget.timeFormat?.format(widget.message.createdAt) ??
+                            DateFormat('HH:mm:ss')
+                                .format(widget.message.createdAt),
+                        widget.message,
                       ) ??
                       Padding(
                         padding: EdgeInsets.only(top: 5.0),
                         child: Text(
-                          timeFormat != null
-                              ? timeFormat!.format(message.createdAt)
+                          widget.timeFormat != null
+                              ? widget.timeFormat!
+                                  .format(widget.message.createdAt)
                               : DateFormat('HH:mm:ss')
-                                  .format(message.createdAt),
+                                  .format(widget.message.createdAt),
                           style: TextStyle(
                             fontSize: 10.0,
-                            color: message.user.color ??
-                                (isUser ? Colors.white70 : Colors.black87),
+                            color: widget.message.user.color ??
+                                (widget.isUser
+                                    ? Colors.white70
+                                    : Colors.black87),
                           ),
                         ),
                       )
@@ -168,7 +180,7 @@ class MessageContainer extends StatelessWidget {
             ),
           ),
         _buildMessageImage(),
-        if (payloadType == PayloadType.quickReplies)
+        if (widget.payloadType == PayloadType.quickReplies)
           SizedBox(
             height: 60,
             child: CustomScrollView(
@@ -177,11 +189,11 @@ class MessageContainer extends StatelessWidget {
                 SliverToBoxAdapter(
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: isUser
+                    mainAxisAlignment: widget.isUser
                         ? MainAxisAlignment.end
                         : MainAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
-                    children: buttons!
+                    children: widget.buttons!
                         .asMap()
                         .map(
                           (index, reply) {
@@ -216,19 +228,19 @@ class MessageContainer extends StatelessWidget {
               ],
             ),
           ),
-        if (payloadType == PayloadType.buttons)
+        if (widget.payloadType == PayloadType.buttons)
           Container(
             child: Padding(
               padding: const EdgeInsets.all(15.0),
               child: GridView.builder(
                   padding: EdgeInsets.only(bottom: 120),
-                  itemCount: buttons!.length,
+                  itemCount: widget.buttons!.length,
                   shrinkWrap: true,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                   ),
                   itemBuilder: (BuildContext context, int index) {
-                    var item = buttons![index];
+                    var item = widget.buttons![index];
                     return Container(
                       height: 60,
                       margin: EdgeInsets.all(7),
@@ -278,14 +290,15 @@ class MessageContainer extends StatelessWidget {
                   }),
             ),
           ),
-        if (payloadType == PayloadType.cardsCarousel && buttons != null)
+        if (widget.payloadType == PayloadType.cardsCarousel &&
+            widget.buttons != null)
           CarouselSlider(
             options: CarouselOptions(
               autoPlay: true,
               aspectRatio: 2.0,
               enlargeCenterPage: true,
             ),
-            items: buttons!
+            items: widget.buttons!
                 .asMap()
                 .map(
                   (index, reply) {
@@ -350,33 +363,61 @@ class MessageContainer extends StatelessWidget {
                 .values
                 .toList(),
           ),
+        if (widget.payloadType == PayloadType.dropDown)
+          SizedBox(
+            width: double.infinity,
+            height: 330,
+            child: GridView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: dummyData.length,
+              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 74,
+                childAspectRatio: 0.35,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+              ),
+              itemBuilder: (context, index) {
+                return Container(
+                  color: Colors.amber,
+                  alignment: Alignment.center,
+                  child: Text(
+                    dummyData[index],
+                    style: TextStyle(fontSize: 30),
+                  ),
+                );
+                
+              },
+            ),
+          ),
       ],
     );
   }
 
   Widget _buildMessageText() {
-    return messageTextBuilder?.call(message.text, message) ??
+    return widget.messageTextBuilder
+            ?.call(widget.message.text, widget.message) ??
         ParsedText(
-          parse: parsePatterns,
-          text: message.text!,
+          parse: widget.parsePatterns,
+          text: widget.message.text!,
           style: TextStyle(
-            color: message.user.color ??
-                (isUser ? Colors.white70 : Colors.black87),
+            color: widget.message.user.color ??
+                (widget.isUser ? Colors.white70 : Colors.black87),
           ),
         );
   }
 
   Widget _buildMessageImage() {
-    if (message.image != null) {
-      return messageImageBuilder?.call(message.image, message) ??
+    if (widget.message.image != null) {
+      return widget.messageImageBuilder
+              ?.call(widget.message.image, widget.message) ??
           Padding(
             padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
             child: FadeInImage.memoryNetwork(
-              height: constraints!.maxHeight * 0.3,
-              width: constraints!.maxWidth * 0.7,
+              height: widget.constraints!.maxHeight * 0.3,
+              width: widget.constraints!.maxWidth * 0.7,
               fit: BoxFit.contain,
               placeholder: kTransparentImage,
-              image: message.image!,
+              image: widget.message.image!,
             ),
           );
     }
