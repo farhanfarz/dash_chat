@@ -3,15 +3,15 @@ part of dash_chat;
 class QuickReply extends StatelessWidget {
   final Reply reply;
 
-  final Function(Reply)? onReply;
+  final Function(Reply) onReply;
 
-  final BoxDecoration? quickReplyStyle;
+  final BoxDecoration quickReplyStyle;
 
-  final TextStyle? quickReplyTextStyle;
+  final TextStyle quickReplyTextStyle;
 
-  final Widget Function(Reply)? quickReplyBuilder;
+  final Widget Function(Reply) quickReplyBuilder;
 
-  final BoxConstraints? constraints;
+  final BoxConstraints constraints;
 
   const QuickReply({
     this.quickReplyBuilder,
@@ -19,7 +19,7 @@ class QuickReply extends StatelessWidget {
     this.quickReplyTextStyle,
     this.constraints,
     this.onReply,
-    required this.reply,
+    this.reply,
   });
 
   @override

@@ -1,16 +1,16 @@
 part of dash_chat;
 
 class ScrollToBottom extends StatelessWidget {
-  final Function? onScrollToBottomPress;
+  final Function onScrollToBottomPress;
   final ScrollController scrollController;
   final bool inverted;
   final ScrollToBottomStyle scrollToBottomStyle;
 
   ScrollToBottom({
     this.onScrollToBottomPress,
-    required this.scrollController,
-    required this.inverted,
-    required this.scrollToBottomStyle,
+    this.scrollController,
+    this.inverted,
+    this.scrollToBottomStyle,
   });
 
   @override

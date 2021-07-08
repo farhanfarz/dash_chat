@@ -20,26 +20,26 @@ class MessageContainer extends StatefulWidget {
   /// [DateFormat] object to render the date in desired
   /// format, if no format is provided it use
   /// the default `HH:mm:ss`
-  final DateFormat? timeFormat;
+  final DateFormat timeFormat;
 
   /// [messageTextBuilder] function takes a function with this
   /// structure [Widget Function(String)] to render the text inside
   /// the container.
-  final Widget Function(String?, [ChatMessage])? messageTextBuilder;
+  final Widget Function(String, [ChatMessage]) messageTextBuilder;
 
   /// [messageImageBuilder] function takes a function with this
   /// structure [Widget Function(String)] to render the image inside
   /// the container.
-  final Widget Function(String?, [ChatMessage])? messageImageBuilder;
+  final Widget Function(String, [ChatMessage]) messageImageBuilder;
 
   /// [messageTimeBuilder] function takes a function with this
   /// structure [Widget Function(String)] to render the time text inside
   /// the container.
-  final Widget Function(String, [ChatMessage])? messageTimeBuilder;
+  final Widget Function(String, [ChatMessage]) messageTimeBuilder;
 
   /// Provides a custom style to the message container
   /// takes [BoxDecoration]
-  final BoxDecoration? messageContainerDecoration;
+  final BoxDecoration messageContainerDecoration;
 
   /// Used to parse text to make it linkified text uses
   /// [flutter_parsed_text](https://pub.dev/packages/flutter_parsed_text)
@@ -52,16 +52,16 @@ class MessageContainer extends StatefulWidget {
 
   /// Provides a list of buttons to allow the usage of adding buttons to
   /// the bottom of the message
-  final List<Reply>? buttons;
+  final List<Reply> buttons;
   final PayloadType payloadType;
 
   /// [messageButtonsBuilder] function takes a function with this
   /// structure [List<Widget> Function()] to render the buttons inside
   /// a row.
-  final List<Widget> Function(ChatMessage)? messageButtonsBuilder;
+  final List<Widget> Function(ChatMessage) messageButtonsBuilder;
 
   /// Constraint to use to build the message layout
-  final BoxConstraints? constraints;
+  final BoxConstraints constraints;
 
   /// Padding of the message
   /// Default to EdgeInsets.all(8.0)
@@ -76,11 +76,11 @@ class MessageContainer extends StatefulWidget {
   /// can be used to override color, or customise the message container
   /// params [ChatMessage] and [isUser]: boolean
   /// return BoxDecoration
-  final BoxDecoration Function(ChatMessage, bool?)? messageDecorationBuilder;
+  final BoxDecoration Function(ChatMessage, bool) messageDecorationBuilder;
 
   const MessageContainer({
-    required this.message,
-    required this.timeFormat,
+    this.message,
+    this.timeFormat,
     this.constraints,
     this.messageImageBuilder,
     this.messageTextBuilder,
@@ -88,7 +88,7 @@ class MessageContainer extends StatefulWidget {
     this.messageContainerDecoration,
     this.parsePatterns = const <MatchText>[],
     this.textBeforeImage = true,
-    required this.isUser,
+    this.isUser,
     this.messageButtonsBuilder,
     this.buttons,
     this.payloadType = PayloadType.none,
@@ -102,17 +102,51 @@ class MessageContainer extends StatefulWidget {
 
 class _MessageContainerState extends State<MessageContainer> {
   final List dummyData = List.generate(50, (index) => '$index');
+  VideoPlayerController _controller;
+  Future<void> _initializeVideoPlayerFuture;
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.payloadType == PayloadType.video)
+      _controller =
+          createMyVideoControllerUsingUrl(widget.buttons.first.iconPath ?? '');
+  }
+
+  VideoPlayerController createMyVideoControllerUsingUrl(String url) {
+    VideoPlayerController _controller = VideoPlayerController.network(
+      url,
+      youtubeVideoQuality: VideoQuality.high720,
+    );
+    _controller.addListener(() {
+      setState(() {});
+    });
+    _controller.setLooping(false);
+    _controller.initialize().then((_) => setState(() {}));
+    _controller.play();
+
+    return _controller;
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller?.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final constraints = this.widget.constraints ??
         BoxConstraints(
             maxHeight: MediaQuery.of(context).size.height,
             maxWidth: MediaQuery.of(context).size.width);
+
     return Column(
       crossAxisAlignment:
           widget.isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
       children: [
-        if (widget.message.text != null && widget.message.text!.isNotEmpty)
+        if (widget.message.text != null && widget.message.text.isNotEmpty)
           ConstrainedBox(
             constraints: BoxConstraints(
               maxWidth: constraints.maxWidth * 0.8,
@@ -123,7 +157,7 @@ class _MessageContainerState extends State<MessageContainer> {
                   widget.messageContainerDecoration?.copyWith(
                     color: widget.message.user.containerColor != null
                         ? widget.message.user.containerColor
-                        : widget.messageContainerDecoration!.color,
+                        : widget.messageContainerDecoration.color,
                   ) ??
                   BoxDecoration(
                     color: widget.message.user.containerColor ??
@@ -157,7 +191,7 @@ class _MessageContainerState extends State<MessageContainer> {
                       mainAxisAlignment: widget.isUser
                           ? MainAxisAlignment.end
                           : MainAxisAlignment.start,
-                      children: widget.messageButtonsBuilder!(widget.message),
+                      children: widget.messageButtonsBuilder(widget.message),
                       mainAxisSize: MainAxisSize.min,
                     ),
                   widget.messageTimeBuilder?.call(
@@ -170,7 +204,7 @@ class _MessageContainerState extends State<MessageContainer> {
                         padding: EdgeInsets.only(top: 5.0),
                         child: Text(
                           widget.timeFormat != null
-                              ? widget.timeFormat!
+                              ? widget.timeFormat
                                   .format(widget.message.createdAt)
                               : DateFormat('HH:mm:ss')
                                   .format(widget.message.createdAt),
@@ -201,7 +235,7 @@ class _MessageContainerState extends State<MessageContainer> {
                         ? MainAxisAlignment.end
                         : MainAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
-                    children: widget.buttons!
+                    children: widget.buttons
                         .asMap()
                         .map(
                           (index, reply) {
@@ -242,13 +276,13 @@ class _MessageContainerState extends State<MessageContainer> {
               padding: const EdgeInsets.all(15.0),
               child: GridView.builder(
                   padding: EdgeInsets.only(bottom: 120),
-                  itemCount: widget.buttons!.length,
+                  itemCount: widget.buttons.length,
                   shrinkWrap: true,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                   ),
                   itemBuilder: (BuildContext context, int index) {
-                    var item = widget.buttons![index];
+                    var item = widget.buttons[index];
                     return Container(
                       height: 60,
                       margin: EdgeInsets.all(7),
@@ -306,7 +340,7 @@ class _MessageContainerState extends State<MessageContainer> {
               aspectRatio: 2.0,
               enlargeCenterPage: true,
             ),
-            items: widget.buttons!
+            items: widget.buttons
                 .asMap()
                 .map(
                   (index, reply) {
@@ -328,8 +362,8 @@ class _MessageContainerState extends State<MessageContainer> {
                                         //   width: 1000,
                                         // ),
                                         if (reply.iconPath != null &&
-                                            reply.iconPath!.isNotEmpty)
-                                          Image.network(reply.iconPath!,
+                                            reply.iconPath.isNotEmpty)
+                                          Image.network(reply.iconPath,
                                               fit: BoxFit.cover, width: 1000.0),
 
                                         Positioned(
@@ -379,7 +413,7 @@ class _MessageContainerState extends State<MessageContainer> {
               height: 330,
               child: GridView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: widget.buttons!.length,
+                itemCount: widget.buttons.length,
                 gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                   maxCrossAxisExtent: 74,
                   childAspectRatio: 0.35,
@@ -387,7 +421,7 @@ class _MessageContainerState extends State<MessageContainer> {
                   mainAxisSpacing: 10,
                 ),
                 itemBuilder: (context, index) {
-                  var item = widget.buttons![index];
+                  var item = widget.buttons[index];
                   return Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -432,37 +466,75 @@ class _MessageContainerState extends State<MessageContainer> {
                         ),
                       ),
                     ),
-                    // child: Text(
-                    //   dummyData[index],
-                    //   style: TextStyle(fontSize: 30),
-                    // ),
                   );
                 },
               ),
             ),
           ),
         if (widget.payloadType == PayloadType.video)
-          Padding(
-            padding: EdgeInsets.only(left: 12.0, right: 12),
-            child: Container(
-              width: 1,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(15.0),
-                boxShadow: [
-                  BoxShadow(
-                    color: Color(0xFFD2DEE2).withOpacity(0.4),
-                    blurRadius: 30.0, // soften the shadow
-                    spreadRadius: 0.0, //extend the shadow
-                    offset: Offset(
-                      0.0, // Move to right 10  horizontally
-                      8.0, // Move to bottom 10 Vertically
-                    ),
+          SizedBox(
+            height: 240,
+            child: PhysicalModel(
+              color: Colors.transparent,
+              borderRadius: BorderRadius.circular(20),
+              shadowColor: Color(0xFFD2DEE2).withOpacity(0.4),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: AspectRatio(
+                  aspectRatio: _controller.value.aspectRatio,
+                  child: Stack(
+                    alignment: Alignment.bottomCenter,
+                    children: <Widget>[
+                      VideoPlayer(_controller),
+                      ClosedCaption(text: _controller.value.caption.text),
+                      _PlayPauseOverlay(controller: _controller),
+                      VideoProgressIndicator(
+                        _controller,
+                        allowScrubbing: true,
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
           ),
+      ],
+    );
+  }
+
+  Widget pauseAndPlay() {
+    return Stack(
+      children: <Widget>[
+        AnimatedSwitcher(
+          duration: Duration(milliseconds: 44),
+          reverseDuration: Duration(milliseconds: 200),
+          child: Opacity(
+            opacity: (_controller.value.isPlaying ?? false) ? 0 : 1,
+            child: Align(
+              alignment: Alignment.center,
+              child: Container(
+                // height: 50,
+                // width: 50,
+                child: Icon(
+                  (_controller.value.isPlaying ?? false)
+                      ? Icons.pause
+                      : Icons.play_arrow,
+                  color: Colors.white,
+                  size: 50,
+                ),
+              ),
+            ),
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            setState(() {
+              (_controller.value.isPlaying ?? false)
+                  ? _controller?.pause()
+                  : _controller?.play();
+            });
+          },
+        ),
       ],
     );
   }
@@ -472,7 +544,7 @@ class _MessageContainerState extends State<MessageContainer> {
             ?.call(widget.message.text, widget.message) ??
         ParsedText(
           parse: widget.parsePatterns,
-          text: widget.message.text!,
+          text: widget.message.text,
           style: TextStyle(
             color: widget.message.user.color ??
                 (widget.isUser ? Colors.white70 : Colors.black87),
@@ -487,14 +559,52 @@ class _MessageContainerState extends State<MessageContainer> {
           Padding(
             padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
             child: FadeInImage.memoryNetwork(
-              height: widget.constraints!.maxHeight * 0.3,
-              width: widget.constraints!.maxWidth * 0.7,
+              height: widget.constraints.maxHeight * 0.3,
+              width: widget.constraints.maxWidth * 0.7,
               fit: BoxFit.contain,
               placeholder: kTransparentImage,
-              image: widget.message.image!,
+              image: widget.message.image,
             ),
           );
     }
     return SizedBox(width: 0, height: 0);
+  }
+}
+
+class _PlayPauseOverlay extends StatelessWidget {
+  const _PlayPauseOverlay({Key key, this.controller}) : super(key: key);
+
+  final VideoPlayerController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: <Widget>[
+        AnimatedSwitcher(
+          duration: Duration(milliseconds: 50),
+          reverseDuration: Duration(milliseconds: 200),
+          child: controller.value.isPlaying
+              ? SizedBox.shrink()
+              : Container(
+                  color: Colors.black26,
+                  child: Center(
+                    child: Icon(
+                      Icons.play_arrow,
+                      color: Colors.white,
+                      size: 50.0,
+                    ),
+                  ),
+                ),
+        ),
+        GestureDetector(
+          onTap: () {
+            if (controller.value.position == controller.value.duration) {
+              controller.initialize();
+            }
+            controller.value.isPlaying ? controller.pause() : controller.play();
+          },
+        ),
+      ],
+    );
   }
 }

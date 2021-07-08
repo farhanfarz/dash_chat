@@ -1,11 +1,5 @@
 import 'dart:async';
-import 'dart:io';
-
-import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:dash_chat/dash_chat.dart';
 
@@ -58,6 +52,41 @@ class _MyHomePageState extends State<MyHomePage> {
       createdAt: DateTime.now(),
       // image: "http://www.sclance.com/images/picture/Picture_753248.jpg",
     ),
+    /*ChatMessage(
+      text: "This is a quick reply example.",
+      user: ChatUser(
+        name: "Mrfatty",
+        uid: "25649654",
+      ),
+      createdAt: DateTime.now(),
+      payloadType: PayloadType.cardsCarousel,
+      buttons: <Reply>[
+        Reply(
+          title: "How to",
+          value: "How to",
+          iconPath:
+              "https://silxdigital.com/wp-content/uploads/2019/09/digital-ads-promo-icon.png",
+        ),
+        Reply(
+          title: "Check rates",
+          value: "Check rates",
+          iconPath:
+              "https://silxdigital.com/wp-content/uploads/2019/09/digital-ads-promo-icon.png",
+        ),
+        Reply(
+          title: "Set alert",
+          value: "Set alert",
+          iconPath:
+              "https://silxdigital.com/wp-content/uploads/2019/09/digital-ads-promo-icon.png",
+        ),
+        Reply(
+          title: "Disable alert",
+          value: "Disable alert",
+          iconPath:
+              "https://silxdigital.com/wp-content/uploads/2019/09/digital-ads-promo-icon.png",
+        ),
+      ],
+    ),
     ChatMessage(
       text: "This is a quick reply example.",
       user: ChatUser(
@@ -92,6 +121,24 @@ class _MyHomePageState extends State<MyHomePage> {
               "https://silxdigital.com/wp-content/uploads/2019/09/digital-ads-promo-icon.png",
         ),
       ],
+    ),*/
+    ChatMessage(
+      text: "This is a video example.",
+      user: ChatUser(
+        name: "Mrfatty",
+        uid: "25649654",
+      ),
+      createdAt: DateTime.now(),
+      payloadType: PayloadType.video,
+      buttons: <Reply>[
+        Reply(
+          title: "",
+          value: "",
+          iconPath:
+              "https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4",
+          // iconPath: "https://www.youtube.com/watch?v=YFCSODyFxbE",
+        ),
+      ],
     ),
   ];
 
@@ -113,10 +160,9 @@ class _MyHomePageState extends State<MyHomePage> {
         i++;
       }
       Timer(Duration(milliseconds: 300), () {
-        _chatViewKey.currentState!.scrollController
+        _chatViewKey.currentState.scrollController
           ..animateTo(
-            _chatViewKey
-                .currentState!.scrollController.position.maxScrollExtent,
+            _chatViewKey.currentState.scrollController.position.maxScrollExtent,
             curve: Curves.easeOut,
             duration: const Duration(milliseconds: 300),
           );
@@ -296,10 +342,10 @@ class _MyHomePageState extends State<MyHomePage> {
           });
 
           Timer(Duration(milliseconds: 300), () {
-            _chatViewKey.currentState!.scrollController
+            _chatViewKey.currentState.scrollController
               ..animateTo(
                 _chatViewKey
-                    .currentState!.scrollController.position.maxScrollExtent,
+                    .currentState.scrollController.position.maxScrollExtent,
                 curve: Curves.easeOut,
                 duration: const Duration(milliseconds: 300),
               );
@@ -323,7 +369,7 @@ class _MyHomePageState extends State<MyHomePage> {
           IconButton(
             icon: Icon(Icons.photo),
             onPressed: () async {
-              final picker = ImagePicker();
+              // final picker = ImagePicker();
               // PickedFile? result = await picker.getImage(
               //   source: ImageSource.gallery,
               //   imageQuality: 80,

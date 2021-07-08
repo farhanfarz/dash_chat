@@ -4,21 +4,21 @@ part of dash_chat;
 
 class Reply {
   /// Message shown to the user
-  late String title;
+  String title;
 
   /// Actual value underneath the message
   /// It's an [optioanl] paramter
-  String? value;
+  String value;
 
-  String? iconPath;
+  String iconPath;
 
   /// If no messageId is provided it will use [UUID v4] to
   /// set a default id for that message
   dynamic messageId;
 
   Reply({
-    required this.title,
-    String? messageId,
+    this.title,
+    String messageId,
     this.iconPath,
     this.value,
   }) {

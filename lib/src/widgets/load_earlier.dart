@@ -2,12 +2,12 @@ part of dash_chat;
 
 class LoadEarlierWidget extends StatelessWidget {
   const LoadEarlierWidget({
-    Key? key,
+    Key key,
     this.onLoadEarlier,
-    required this.defaultLoadCallback,
+    this.defaultLoadCallback,
   }) : super(key: key);
 
-  final Function? onLoadEarlier;
+  final Function onLoadEarlier;
   final Function(bool) defaultLoadCallback;
 
   @override

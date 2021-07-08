@@ -8,50 +8,50 @@ class ChatMessage {
   /// and [optional] paramter called [messageIdGenerator].
   /// [messageIdGenerator] take a function with this
   /// signature [String Function()]
-  String? id;
+  String id;
 
   /// Actual text message.
-  String? text;
+  String text;
 
   /// It's a [non-optional] pararmter which specifies the time the
   /// message was delivered takes a [DateTime] object.
-  late DateTime createdAt;
+  DateTime createdAt;
 
   /// Takes a [ChatUser] object which is used to distinguish between
   /// users and also provide avaatar URLs and name.
-  late ChatUser user;
+  ChatUser user;
 
   /// A [non-optional] parameter which is used to display images
   /// takes a [Sring] as a url
-  String? image;
+  String image;
 
   /// A [non-optional] parameter which is used to display vedio
   /// takes a [Sring] as a url
-  String? video;
+  String video;
 
   /// A [non-optional] parameter which is used to show quick replies
   /// to the user
-  QuickReplies? quickReplies;
+  QuickReplies quickReplies;
 
   /// Allows to set custom-properties that could help with implementing custom
   /// functionality to dashchat.
-  Map<String, dynamic>? customProperties;
+  Map<String, dynamic> customProperties;
 
   /// Allows to set buttons that could help with implementing custom
   /// actions in message container.
-  List<Reply>? buttons;
+  List<Reply> buttons;
 
-  PayloadType? payloadType;
+  PayloadType payloadType;
 
   ChatMessage({
-    String? id,
-    required this.text,
-    required this.user,
+    String id,
+    this.text,
+    this.user,
     this.image,
     this.video,
     this.quickReplies,
-    String Function()? messageIdGenerator,
-    DateTime? createdAt,
+    String Function() messageIdGenerator,
+    DateTime createdAt,
     this.customProperties,
     this.buttons,
     this.payloadType,
@@ -70,7 +70,7 @@ class ChatMessage {
     quickReplies = json['quickReplies'] != null
         ? QuickReplies.fromJson(json['quickReplies'])
         : null;
-    customProperties = json['customProperties'] as Map<String, dynamic>?;
+    customProperties = json['customProperties'] as Map<String, dynamic>;
     payloadType = PayloadType.none;
   }
 
