@@ -117,7 +117,7 @@ class _MessageContainerState extends State<MessageContainer> {
   VideoPlayerController createMyVideoControllerUsingUrl(String url) {
     VideoPlayerController _controller = VideoPlayerController.network(
       url,
-      youtubeVideoQuality: VideoQuality.high720,
+      //youtubeVideoQuality: VideoQuality.high720,
     );
     _controller.addListener(() {
       setState(() {});
