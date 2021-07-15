@@ -123,7 +123,9 @@ class _MessageContainerState extends State<MessageContainer> {
       setState(() {});
     });
     _controller.setLooping(false);
-    _controller.initialize().then((_) => setState(() {}));
+    _controller.initialize().then((_) => setState(() {
+          _initializeVideoPlayerFuture = _controller.initialize();
+        }));
     _controller.play();
 
     return _controller;
@@ -480,20 +482,32 @@ class _MessageContainerState extends State<MessageContainer> {
               shadowColor: Color(0xFFD2DEE2).withOpacity(0.4),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(15),
-                child: AspectRatio(
-                  aspectRatio: _controller.value.aspectRatio,
-                  child: Stack(
-                    alignment: Alignment.bottomCenter,
-                    children: <Widget>[
-                      VideoPlayer(_controller),
-                      ClosedCaption(text: _controller.value.caption.text),
-                      _PlayPauseOverlay(controller: _controller),
-                      VideoProgressIndicator(
-                        _controller,
-                        allowScrubbing: true,
-                      ),
-                    ],
-                  ),
+                child: FutureBuilder(
+                  future: _initializeVideoPlayerFuture,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      // If the VideoPlayerController has finished initialization, use
+                      // the data it provides to limit the aspect ratio of the VideoPlayer.
+                      return AspectRatio(
+                          aspectRatio: _controller.value.aspectRatio,
+                          child: Stack(
+                              alignment: Alignment.bottomCenter,
+                              children: <Widget>[
+                                VideoPlayer(_controller),
+                                ClosedCaption(
+                                    text: _controller.value.caption.text),
+                                _PlayPauseOverlay(controller: _controller),
+                                VideoProgressIndicator(
+                                  _controller,
+                                  allowScrubbing: true,
+                                ),
+                              ]));
+                    } else {
+                      // If the VideoPlayerController is still initializing, show a
+                      // loading spinner.
+                      return Center(child: CircularProgressIndicator());
+                    }
+                  },
                 ),
               ),
             ),
