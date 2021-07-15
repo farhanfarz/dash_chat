@@ -16,12 +16,9 @@ class Reply {
   /// set a default id for that message
   dynamic messageId;
 
-  Reply({
-    this.title,
-    String messageId,
-    this.iconPath,
-    this.value,
-  }) {
+  String src;
+
+  Reply({this.title, String messageId, this.iconPath, this.value, this.src}) {
     this.messageId = messageId ?? Uuid().v4().toString();
   }
 
@@ -30,6 +27,7 @@ class Reply {
     value = json['value'];
     messageId = json['messageId'];
     iconPath = json['iconPath'];
+    src = json['src'];
   }
 
   Map<String, dynamic> toJson() {
@@ -39,6 +37,7 @@ class Reply {
     data['title'] = title;
     data['value'] = value;
     data['iconPath'] = iconPath;
+    data['src'] = src;
 
     return data;
   }

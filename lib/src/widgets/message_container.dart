@@ -111,7 +111,7 @@ class _MessageContainerState extends State<MessageContainer> {
 
     if (widget.payloadType == PayloadType.video)
       _controller =
-          createMyVideoControllerUsingUrl(widget.buttons.first.iconPath ?? '');
+          createMyVideoControllerUsingUrl(widget.buttons.first.src ?? '');
   }
 
   VideoPlayerController createMyVideoControllerUsingUrl(String url) {
