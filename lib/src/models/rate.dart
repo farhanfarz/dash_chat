@@ -19,7 +19,7 @@ class Rate {
   /// set a default id for that message
   dynamic messageId;
 
-  String src;
+  
 
   Rate({
     this.fromCurrency,
@@ -43,7 +43,7 @@ class Rate {
     exRate = json['exRate'];
     toCurrencyFull = json['toCurrencyFull'];
 
-    src = json['src'];
+   
   }
 
   Map<String, dynamic> toJson() {
@@ -53,7 +53,7 @@ class Rate {
     data['fromCurrency'] = fromCurrency;
     data['toCurrency'] = toCurrency;
     data['icon'] = icon;
-    data['src'] = src;
+    
     data['buying'] = buying;
     data['selling'] = selling;
     data['remittances'] = remittances;
