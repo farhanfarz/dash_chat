@@ -426,7 +426,7 @@ class _MessageContainerState extends State<MessageContainer> {
                 ),
                 itemBuilder: (context, index) {
                   var item = widget.buttons[index];
-                  return InkResponse(
+                  return GestureDetector(
                     onTap: () {
                       widget.onTapButton(item);
                     },
