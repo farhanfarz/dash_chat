@@ -54,7 +54,6 @@ class MessageContainer extends StatefulWidget {
   /// the bottom of the message
   final List<Reply> buttons;
   final PayloadType payloadType;
-  final Function(Reply) onTapButton;
 
   /// [messageButtonsBuilder] function takes a function with this
   /// structure [List<Widget> Function()] to render the buttons inside
@@ -95,7 +94,6 @@ class MessageContainer extends StatefulWidget {
     this.payloadType = PayloadType.none,
     this.messagePadding = const EdgeInsets.all(8.0),
     this.messageDecorationBuilder,
-    this.onTapButton,
   });
 
   @override
@@ -428,7 +426,7 @@ class _MessageContainerState extends State<MessageContainer> {
                   var item = widget.buttons[index];
                   return GestureDetector(
                     onTap: () {
-                      widget.onTapButton(item);
+                      item.onTapReply();
                     },
                     child: Container(
                       decoration: BoxDecoration(

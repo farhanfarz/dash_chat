@@ -43,8 +43,6 @@ class ChatMessage {
 
   PayloadType payloadType;
 
-  Function(Reply) onTapButton;
-
   ChatMessage({
     String id,
     this.text,
@@ -57,7 +55,6 @@ class ChatMessage {
     this.customProperties,
     this.buttons,
     this.payloadType,
-    this.onTapButton,
   }) {
     this.createdAt = createdAt != null ? createdAt : DateTime.now();
     this.id = id ?? messageIdGenerator?.call() ?? Uuid().v4().toString();

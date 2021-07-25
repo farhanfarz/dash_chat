@@ -20,6 +20,8 @@ class Reply {
 
   Rate rateObject;
 
+  Function onTapReply;
+
   Reply({
     this.title,
     String messageId,
@@ -27,6 +29,7 @@ class Reply {
     this.value,
     this.src,
     this.rateObject,
+    this.onTapReply,
   }) {
     this.messageId = messageId ?? Uuid().v4().toString();
   }
