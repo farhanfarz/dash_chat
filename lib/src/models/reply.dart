@@ -18,7 +18,16 @@ class Reply {
 
   String src;
 
-  Reply({this.title, String messageId, this.iconPath, this.value, this.src}) {
+  Rate rateObject;
+
+  Reply({
+    this.title,
+    String messageId,
+    this.iconPath,
+    this.value,
+    this.src,
+    this.rateObject,
+  }) {
     this.messageId = messageId ?? Uuid().v4().toString();
   }
 
@@ -28,6 +37,7 @@ class Reply {
     messageId = json['messageId'];
     iconPath = json['iconPath'];
     src = json['src'];
+    rateObject = json['rateObject'];
   }
 
   Map<String, dynamic> toJson() {
@@ -38,6 +48,7 @@ class Reply {
     data['value'] = value;
     data['iconPath'] = iconPath;
     data['src'] = src;
+    data['rateObject'] = rateObject;
 
     return data;
   }

@@ -52,14 +52,14 @@ class _MyHomePageState extends State<MyHomePage> {
       createdAt: DateTime.now(),
       // image: "http://www.sclance.com/images/picture/Picture_753248.jpg",
     ),
-    /*ChatMessage(
+    ChatMessage(
       text: "This is a quick reply example.",
       user: ChatUser(
         name: "Mrfatty",
         uid: "25649654",
       ),
       createdAt: DateTime.now(),
-      payloadType: PayloadType.cardsCarousel,
+      payloadType: PayloadType.quickReplies,
       buttons: <Reply>[
         Reply(
           title: "How to",
@@ -121,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
               "https://silxdigital.com/wp-content/uploads/2019/09/digital-ads-promo-icon.png",
         ),
       ],
-    ),*/
+    ),
     ChatMessage(
       text: "This is a video example.",
       user: ChatUser(
@@ -132,13 +132,37 @@ class _MyHomePageState extends State<MyHomePage> {
       payloadType: PayloadType.video,
       buttons: <Reply>[
         Reply(
-          title: "",
-          value: "",
-          iconPath: "",
-          src: "https://www.youtube.com/watch?v=q0EpEK6MkAI",
-              //"https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4",
+          title: "", value: "", iconPath: "",
+          //src: "https://www.youtube.com/watch?v=q0EpEK6MkAI",
+          //"https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4",
           // iconPath: "https://www.youtube.com/watch?v=YFCSODyFxbE",
         ),
+      ],
+    ),
+    ChatMessage(
+      text: "This is a card example.",
+      user: ChatUser(
+        name: "Mrfatty",
+        uid: "25649654",
+      ),
+      createdAt: DateTime.now(),
+      payloadType: PayloadType.card,
+      buttons: <Reply>[
+        Reply(
+            title: "",
+            value: "",
+            iconPath: '',
+            rateObject: Rate(
+                toCurrency: '123',
+                toCurrencyFull: 'uae rupee',
+                fromCurrency: '677',
+                exRate: '20',
+                remittances: '345',
+                buying: '222',
+                selling: '888',
+                icon: 'https://i.postimg.cc/yYgK7qW2/in.png')
+            
+            ),
       ],
     ),
   ];

@@ -6,11 +6,13 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/services.dart';
 import 'package:uuid/uuid.dart';
+
 import 'package:intl/intl.dart' hide TextDirection;
 import 'package:flutter_parsed_text/flutter_parsed_text.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ext_video_player/ext_video_player.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 //import 'package:youtube_explode_dart/src/videos/streams/video_quality.dart';
 
 
@@ -20,6 +22,7 @@ export 'package:flutter_parsed_text/flutter_parsed_text.dart';
 
 part 'src/chat_view.dart';
 part 'src/models/reply.dart';
+part 'src/models/rate.dart';
 part 'src/models/quick_replies.dart';
 part 'src/models/chat_user.dart';
 part 'src/models/chat_message.dart';

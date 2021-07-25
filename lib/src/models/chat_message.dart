@@ -50,6 +50,7 @@ class ChatMessage {
     this.image,
     this.video,
     this.quickReplies,
+    
     String Function() messageIdGenerator,
     DateTime createdAt,
     this.customProperties,

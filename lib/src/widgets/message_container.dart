@@ -481,39 +481,235 @@ class _MessageContainerState extends State<MessageContainer> {
               borderRadius: BorderRadius.circular(20),
               shadowColor: Color(0xFFD2DEE2).withOpacity(0.4),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(15),
-                child: FutureBuilder(
-                 future: _initializeVideoPlayerFuture,
-                 builder: (context, snapshot) {
-                   if (snapshot.connectionState == ConnectionState.done) {
-                     // If the VideoPlayerController has finished initialization, use
-                     // the data it provides to limit the aspect ratio of the VideoPlayer.
-                     return AspectRatio(
-                         aspectRatio: _controller.value.aspectRatio,
-                         child: Stack(
-                             alignment: Alignment.bottomCenter,
-                             children: <Widget>[
-                               VideoPlayer(_controller),
-                               ClosedCaption(
-                                   text: _controller.value.caption.text),
-                               _PlayPauseOverlay(controller: _controller),
-                               VideoProgressIndicator(
-                                 _controller,
-                                 allowScrubbing: true,
-                               ),
-                             ]));
-                   } else {
-                     // If the VideoPlayerController is still initializing, show a
-                     // loading spinner.
-                     return Center(child: CircularProgressIndicator());
-                   }
-                 },
-                  )
-                   
+                  borderRadius: BorderRadius.circular(15),
+                  child: FutureBuilder(
+                    future: _initializeVideoPlayerFuture,
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        // If the VideoPlayerController has finished initialization, use
+                        // the data it provides to limit the aspect ratio of the VideoPlayer.
+                        return AspectRatio(
+                            aspectRatio: _controller.value.aspectRatio,
+                            child: Stack(
+                                alignment: Alignment.bottomCenter,
+                                children: <Widget>[
+                                  VideoPlayer(_controller),
+                                  ClosedCaption(
+                                      text: _controller.value.caption.text),
+                                  _PlayPauseOverlay(controller: _controller),
+                                  VideoProgressIndicator(
+                                    _controller,
+                                    allowScrubbing: true,
+                                  ),
+                                ]));
+                      } else {
+                        // If the VideoPlayerController is still initializing, show a
+                        // loading spinner.
+                        return Center(child: CircularProgressIndicator());
+                      }
+                    },
+                  )),
+            ),
+          ),
+        if (widget.payloadType == PayloadType.card)
+          SizedBox(
+            height: 180,
+            child: Padding(
+              padding: EdgeInsets.only(left: 12.0, right: 12),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(15.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color(0xFFD2DEE2).withOpacity(0.4),
+                      blurRadius: 30.0, // soften the shadow
+                      spreadRadius: 0.0, //extend the shadow
+                      offset: Offset(
+                        0.0, // Move to right 10  horizontally
+                        8.0, // Move to bottom 10 Vertically
+                      ),
+                    ),
+                  ],
+                ),
+                child: Container(
+                  padding: EdgeInsets.only(left: 16),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 16,
+                      ),
+                      Row(
+                        children: [
+                          Container(
+                            width: 30,
+                            height: 30,
+                            child: FadeInImage.memoryNetwork(
+                              height: 44,
+                              width: 44,
+                              fit: BoxFit.contain,
+                              placeholder: kTransparentImage,
+                              image: widget.buttons.first.rateObject?.icon ??
+                                  'https://i.postimg.cc/yYgK7qW2/in.png',
+                              //'https://i.postimg.cc/yYgK7qW2/in.png'
+                            ),
+                            // SvgPicture.asset(
+                            //     'assets/images/svg/flags-svg/ae.svg'),
+                          ),
+                          SizedBox(
+                            width: 16,
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                  '1 ${widget.buttons.first.rateObject?.toCurrencyFull ?? ''}',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Color.fromRGBO(28, 43, 98, 1),
+                                    fontWeight: FontWeight.w600,
+                                  )
+                                  //  Theme.of(context).textTheme.subtitle1.copyWith(
+                                  //     color: Color.fromRGBO(28, 43, 98, 1),
+                                  //     fontSize: 16,
+                                  //     fontWeight: FontWeight.w600),
+                                  ),
+                              Text(
+                                  widget.buttons.first.rateObject?.exRate ?? '',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color: Color.fromRGBO(28, 43, 98, 1),
+                                    fontWeight: FontWeight.w700,
+                                  )
+                                  //   Theme.of(context)
+                                  //       .textTheme
+                                  //       .headline2
+                                  //       .copyWith(color: Color.fromRGBO(28, 43, 98, 1), letterSpacing: -0.5),
+                                  ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 16,
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 16,
+                      ),
+                      Container(
+                        width: 250,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Buying',
+                                  style: TextStyle(
+                                    color: Color(0xDE05046A),
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 13,
+                                    letterSpacing: 0.4,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  widget.buttons.first.rateObject?.buying ?? '',
+                                  style: TextStyle(
+                                    color: Color.fromRGBO(28, 43, 98, 1),
+                                    letterSpacing: -0.5,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 17,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              width: 32,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Selling',
+                                  style: TextStyle(
+                                    color: Color(0xDE05046A),
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 13,
+                                    letterSpacing: 0.4,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  widget.buttons.first.rateObject?.selling ??
+                                      '',
+                                  style: TextStyle(
+                                    color: Color.fromRGBO(28, 43, 98, 1),
+                                    letterSpacing: -0.5,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 17,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              width: 32,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Remittances',
+                                  style: TextStyle(
+                                    color: Color(0xDE05046A),
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 13,
+                                    letterSpacing: 0.4,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  widget.buttons.first.rateObject
+                                          ?.remittances ??
+                                      '',
+                                  style: TextStyle(
+                                    color: Color.fromRGBO(28, 43, 98, 1),
+                                    letterSpacing: -0.5,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 17,
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Text(
+                        'If making remittance in Index Exchange right now',
+                        style: Theme.of(context).textTheme.caption.copyWith(
+                              color: Color.fromRGBO(28, 43, 98, 1)
+                                  .withOpacity(0.4),
+                            ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-          
+          )
       ],
     );
   }
