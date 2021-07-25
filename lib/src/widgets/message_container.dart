@@ -483,35 +483,37 @@ class _MessageContainerState extends State<MessageContainer> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(15),
                 child: FutureBuilder(
-                  future: _initializeVideoPlayerFuture,
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      // If the VideoPlayerController has finished initialization, use
-                      // the data it provides to limit the aspect ratio of the VideoPlayer.
-                      return AspectRatio(
-                          aspectRatio: _controller.value.aspectRatio,
-                          child: Stack(
-                              alignment: Alignment.bottomCenter,
-                              children: <Widget>[
-                                VideoPlayer(_controller),
-                                ClosedCaption(
-                                    text: _controller.value.caption.text),
-                                _PlayPauseOverlay(controller: _controller),
-                                VideoProgressIndicator(
-                                  _controller,
-                                  allowScrubbing: true,
-                                ),
-                              ]));
-                    } else {
-                      // If the VideoPlayerController is still initializing, show a
-                      // loading spinner.
-                      return Center(child: CircularProgressIndicator());
-                    }
-                  },
+                 future: _initializeVideoPlayerFuture,
+                 builder: (context, snapshot) {
+                   if (snapshot.connectionState == ConnectionState.done) {
+                     // If the VideoPlayerController has finished initialization, use
+                     // the data it provides to limit the aspect ratio of the VideoPlayer.
+                     return AspectRatio(
+                         aspectRatio: _controller.value.aspectRatio,
+                         child: Stack(
+                             alignment: Alignment.bottomCenter,
+                             children: <Widget>[
+                               VideoPlayer(_controller),
+                               ClosedCaption(
+                                   text: _controller.value.caption.text),
+                               _PlayPauseOverlay(controller: _controller),
+                               VideoProgressIndicator(
+                                 _controller,
+                                 allowScrubbing: true,
+                               ),
+                             ]));
+                   } else {
+                     // If the VideoPlayerController is still initializing, show a
+                     // loading spinner.
+                     return Center(child: CircularProgressIndicator());
+                   }
+                 },
+                  )
+                   
                 ),
               ),
             ),
-          ),
+          
       ],
     );
   }
