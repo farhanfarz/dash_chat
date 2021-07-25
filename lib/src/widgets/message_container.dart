@@ -54,6 +54,7 @@ class MessageContainer extends StatefulWidget {
   /// the bottom of the message
   final List<Reply> buttons;
   final PayloadType payloadType;
+  final Function(Reply) onTapButton;
 
   /// [messageButtonsBuilder] function takes a function with this
   /// structure [List<Widget> Function()] to render the buttons inside
@@ -94,6 +95,7 @@ class MessageContainer extends StatefulWidget {
     this.payloadType = PayloadType.none,
     this.messagePadding = const EdgeInsets.all(8.0),
     this.messageDecorationBuilder,
+    this.onTapButton,
   });
 
   @override
@@ -424,46 +426,49 @@ class _MessageContainerState extends State<MessageContainer> {
                 ),
                 itemBuilder: (context, index) {
                   var item = widget.buttons[index];
-                  return Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(15),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color(0xFFD2DEE2).withOpacity(0.4),
-                          blurRadius: 30.0, // soften the shadow
-                          spreadRadius: 0.0, //extend the shadow
-                          offset: Offset(
-                            0.0, // Move to right 10  horizontally
-                            8.0, // Move to bottom 10 Vertically
+                  return GestureDetector(
+                    onTap: widget.onTapButton(item),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(15),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color(0xFFD2DEE2).withOpacity(0.4),
+                            blurRadius: 30.0, // soften the shadow
+                            spreadRadius: 0.0, //extend the shadow
+                            offset: Offset(
+                              0.0, // Move to right 10  horizontally
+                              8.0, // Move to bottom 10 Vertically
+                            ),
+                          ),
+                        ],
+                      ),
+                      //color: Colors.white,
+                      alignment: Alignment.center,
+                      child: ListTile(
+                        leading: Image.network(
+                          item.iconPath ?? '',
+                          height: 44.0,
+                          width: 44.0,
+                        ),
+                        title: Text(
+                          item.title,
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                            color: Color(0xDE05046A),
                           ),
                         ),
-                      ],
-                    ),
-                    //color: Colors.white,
-                    alignment: Alignment.center,
-                    child: ListTile(
-                      leading: Image.network(
-                        item.iconPath ?? '',
-                        height: 44.0,
-                        width: 44.0,
-                      ),
-                      title: Text(
-                        item.title,
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xDE05046A),
-                        ),
-                      ),
-                      subtitle: Container(
-                        padding: EdgeInsets.only(top: 8),
-                        child: Text(
-                          item.value ?? '',
-                          style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w500,
-                            color: Color(0xDE05046A),
+                        subtitle: Container(
+                          padding: EdgeInsets.only(top: 8),
+                          child: Text(
+                            item.value ?? '',
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500,
+                              color: Color(0xDE05046A),
+                            ),
                           ),
                         ),
                       ),
