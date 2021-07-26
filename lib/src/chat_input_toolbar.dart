@@ -13,6 +13,7 @@ class ChatInputToolbar extends StatelessWidget {
   final bool alwaysShowSend;
   final ChatUser user;
   final Function(ChatMessage) onSend;
+  
   final String text;
   final Function(String) onTextChange;
   final bool inputDisabled;
@@ -55,6 +56,7 @@ class ChatInputToolbar extends StatelessWidget {
     this.inputCursorWidth = 2.0,
     this.inputCursorColor,
     this.onSend,
+   
     this.reverse = false,
     this.user,
     this.alwaysShowSend = false,

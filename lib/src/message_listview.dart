@@ -9,6 +9,7 @@ class MessageListView extends StatefulWidget {
   final bool showAvatarForEverMessage;
   final Function(ChatUser) onPressAvatar;
   final Function(ChatUser) onLongPressAvatar;
+  final Function(Reply) onTapReply;
   final bool renderAvatarOnTop;
   final Function(ChatMessage) onLongPressMessage;
   final bool inverted;
@@ -59,6 +60,7 @@ class MessageListView extends StatefulWidget {
     this.onLongPressAvatar,
     this.onLongPressMessage,
     this.onPressAvatar,
+    this.onTapReply,
     this.renderAvatarOnTop,
     this.messageBuilder,
     this.renderMessageFooter,
@@ -306,6 +308,7 @@ class _MessageListViewState extends State<MessageListView> {
                                                       widget.textBeforeImage,
                                                   messageDecorationBuilder: widget
                                                       .messageDecorationBuilder,
+                                                    onTapReply: widget.onTapReply,
                                                 ),
                                               ),
                                       ),

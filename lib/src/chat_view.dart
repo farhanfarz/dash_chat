@@ -69,6 +69,8 @@ class DashChat extends StatefulWidget {
   /// with the [ChatMessage] obeject before make calls.
   final Function(ChatMessage) onSend;
 
+  final Function(Reply) onTapReply;
+
   /// Should the send button be always active it defaults to false
   /// Usually it will only become active if some text is entered.
   final bool alwaysShowSend;
@@ -328,6 +330,7 @@ class DashChat extends StatefulWidget {
     this.timeFormat,
     this.user,
     this.onSend,
+    this.onTapReply,
     this.onLongPressAvatar,
     this.onLongPressMessage,
     this.onPressAvatar,
@@ -504,6 +507,7 @@ class DashChatState extends State<DashChat> {
                       onLongPressAvatar: widget.onLongPressAvatar,
                       onPressAvatar: widget.onPressAvatar,
                       onLongPressMessage: widget.onLongPressMessage,
+                      onTapReply: widget.onTapReply,
                       avatarBuilder: widget.avatarBuilder,
                       messageBuilder: widget.messageBuilder,
                       messageTextBuilder: widget.messageTextBuilder,

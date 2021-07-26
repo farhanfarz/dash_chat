@@ -77,6 +77,7 @@ class MessageContainer extends StatefulWidget {
   /// params [ChatMessage] and [isUser]: boolean
   /// return BoxDecoration
   final BoxDecoration Function(ChatMessage, bool) messageDecorationBuilder;
+  final Function(Reply) onTapReply;
 
   const MessageContainer({
     this.message,
@@ -94,6 +95,7 @@ class MessageContainer extends StatefulWidget {
     this.payloadType = PayloadType.none,
     this.messagePadding = const EdgeInsets.all(8.0),
     this.messageDecorationBuilder,
+    this.onTapReply,
   });
 
   @override
@@ -426,7 +428,7 @@ class _MessageContainerState extends State<MessageContainer> {
                   var item = widget.buttons[index];
                   return GestureDetector(
                     onTap: () {
-                      item.onTapReply();
+                      widget.onTapReply(item);
                     },
                     child: Container(
                       decoration: BoxDecoration(
