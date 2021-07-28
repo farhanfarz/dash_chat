@@ -18,6 +18,8 @@ class DashChat extends StatefulWidget {
   // Width for the Dash chat Widget
   final double width;
 
+  final bool isSomeOneTyping;
+
   /// List of messages to display in the chat container
   /// Takes a [List] of [ChatMessage]
   final List<ChatMessage> messages;
@@ -316,6 +318,7 @@ class DashChat extends StatefulWidget {
     this.height,
     this.width,
     this.readOnly = false,
+    this.isSomeOneTyping = true,
     this.messages,
     this.onTextChange,
     this.text,
@@ -483,7 +486,8 @@ class DashChatState extends State<DashChat> {
                     ? MainAxisAlignment.start
                     : MainAxisAlignment.end,
                 children: <Widget>[
-                  MessageListView(
+                  Expanded(
+                    child: MessageListView(
                       avatarMaxSize: widget.avatarMaxSize,
                       messagePadding: widget.messagePadding,
                       constraints: constraints,
@@ -521,8 +525,15 @@ class DashChatState extends State<DashChat> {
                       visible: visible,
                       showLoadMore: showLoadMore,
                       messageButtonsBuilder: widget.messageButtonsBuilder,
-                      messageDecorationBuilder:
-                          widget.messageDecorationBuilder),
+                      messageDecorationBuilder: widget.messageDecorationBuilder,
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.bottomLeft,
+                    child: TypingIndicator(
+                      showIndicator: widget.isSomeOneTyping,
+                    ),
+                  ),
                   if (widget.messages.length != 0 &&
                       widget.messages.last.user.uid != widget.user.uid &&
                       widget.messages.last.quickReplies != null)

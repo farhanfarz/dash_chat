@@ -79,24 +79,27 @@ class MessageContainer extends StatefulWidget {
   final BoxDecoration Function(ChatMessage, bool) messageDecorationBuilder;
   final Function(Reply) onTapReply;
 
-  const MessageContainer({
-    this.message,
-    this.timeFormat,
-    this.constraints,
-    this.messageImageBuilder,
-    this.messageTextBuilder,
-    this.messageTimeBuilder,
-    this.messageContainerDecoration,
-    this.parsePatterns = const <MatchText>[],
-    this.textBeforeImage = true,
-    this.isUser,
-    this.messageButtonsBuilder,
-    this.buttons,
-    this.payloadType = PayloadType.none,
-    this.messagePadding = const EdgeInsets.all(8.0),
-    this.messageDecorationBuilder,
-    this.onTapReply,
-  });
+  final bool isSomeoneTyping;
+
+  const MessageContainer(
+      {this.message,
+      this.timeFormat,
+      this.constraints,
+      this.messageImageBuilder,
+      this.messageTextBuilder,
+      this.messageTimeBuilder,
+      this.messageContainerDecoration,
+      this.parsePatterns = const <MatchText>[],
+      this.textBeforeImage = true,
+      this.isUser,
+      this.messageButtonsBuilder,
+      this.buttons,
+      this.payloadType = PayloadType.none,
+      this.messagePadding = const EdgeInsets.all(8.0),
+      this.messageDecorationBuilder,
+      this.onTapReply,
+      this.isSomeoneTyping = false,
+      });
 
   @override
   _MessageContainerState createState() => _MessageContainerState();
