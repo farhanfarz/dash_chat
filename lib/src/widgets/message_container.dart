@@ -588,7 +588,7 @@ class _MessageContainerState extends State<MessageContainer> {
                                   //     fontWeight: FontWeight.w600),
                                   ),
                               Text(
-                                  widget.buttons.first.rateObject?.exRate ?? '',
+                                  widget.buttons.first.rateObject?.exRate.toString() ?? '',
                                   style: TextStyle(
                                     fontSize: 20,
                                     color: Color.fromRGBO(28, 43, 98, 1),
@@ -630,7 +630,7 @@ class _MessageContainerState extends State<MessageContainer> {
                                   height: 5,
                                 ),
                                 Text(
-                                  widget.buttons.first.rateObject?.buying ?? '',
+                                  widget.buttons.first.rateObject?.buying.toString() ?? '',
                                   style: TextStyle(
                                     color: Color.fromRGBO(28, 43, 98, 1),
                                     letterSpacing: -0.5,
@@ -659,7 +659,7 @@ class _MessageContainerState extends State<MessageContainer> {
                                   height: 5,
                                 ),
                                 Text(
-                                  widget.buttons.first.rateObject?.selling ??
+                                  widget.buttons.first.rateObject?.selling.toString() ??
                                       '',
                                   style: TextStyle(
                                     color: Color.fromRGBO(28, 43, 98, 1),
@@ -690,7 +690,7 @@ class _MessageContainerState extends State<MessageContainer> {
                                 ),
                                 Text(
                                   widget.buttons.first.rateObject
-                                          ?.remittances ??
+                                          ?.remittances.toString() ??
                                       '',
                                   style: TextStyle(
                                     color: Color.fromRGBO(28, 43, 98, 1),

@@ -9,10 +9,10 @@ class Rate {
   /// It's an [optioanl] paramter
   String toCurrency;
   String toCurrencyFull;
-  String exRate;
-  String buying;
-  String selling;
-  String remittances;
+  double exRate;
+  double buying;
+  double selling;
+  double remittances;
   String icon;
 
   /// If no messageId is provided it will use [UUID v4] to
