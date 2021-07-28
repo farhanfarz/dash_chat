@@ -4,22 +4,25 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-
 const _backgroundColor = Color(0xFF333333);
 
 class TypingIndicator extends StatefulWidget {
   const TypingIndicator({
     Key key,
     this.showIndicator = false,
-    this.bubbleColor = const Color(0xFF646b7f),
-    this.flashingCircleDarkColor = const Color(0xFF333333),
+    this.bubbleFirstColor = const Color(0xFF4F6FE8),
+    this.bubbleSecondColor = const Color(0xFF5AABE2),
+
+    //Color(0xFF646b7f),
+    this.flashingCircleDarkColor = const Color(0xFFFFFFF),
     this.flashingCircleBrightColor = const Color(0xFFaec1dd),
   }) : super(key: key);
 
   final bool showIndicator;
-  final Color bubbleColor;
+  final Color bubbleFirstColor;
   final Color flashingCircleDarkColor;
   final Color flashingCircleBrightColor;
+  final Color bubbleSecondColor;
 
   @override
   _TypingIndicatorState createState() => _TypingIndicatorState();
@@ -27,15 +30,15 @@ class TypingIndicator extends StatefulWidget {
 
 class _TypingIndicatorState extends State<TypingIndicator>
     with TickerProviderStateMixin {
-   AnimationController _appearanceController;
+  AnimationController _appearanceController;
 
-   Animation<double> _indicatorSpaceAnimation;
+  Animation<double> _indicatorSpaceAnimation;
 
-   Animation<double> _smallBubbleAnimation;
-   Animation<double> _mediumBubbleAnimation;
-   Animation<double> _largeBubbleAnimation;
+  Animation<double> _smallBubbleAnimation;
+  Animation<double> _mediumBubbleAnimation;
+  Animation<double> _largeBubbleAnimation;
 
-   AnimationController _repeatingController;
+  AnimationController _repeatingController;
   final List<Interval> _dotIntervals = const [
     Interval(0.25, 0.8),
     Interval(0.35, 0.9),
@@ -123,44 +126,47 @@ class _TypingIndicatorState extends State<TypingIndicator>
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _indicatorSpaceAnimation,
-      builder: (context, child) {
-        return SizedBox(
-          height: _indicatorSpaceAnimation.value,
-          child: child,
-        );
-      },
-      child: Stack(
-        children: [
-          _buildAnimatedBubble(
-            animation: _smallBubbleAnimation,
-            left: 8,
-            bottom: 8,
-            bubble: _buildCircleBubble(8),
-          ),
-          _buildAnimatedBubble(
-            animation: _mediumBubbleAnimation,
-            left: 10,
-            bottom: 10,
-            bubble: _buildCircleBubble(16),
-          ),
-          _buildAnimatedBubble(
-            animation: _largeBubbleAnimation,
-            left: 12,
-            bottom: 12,
-            bubble: _buildStatusBubble(),
-          ),
-        ],
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: AnimatedBuilder(
+        animation: _indicatorSpaceAnimation,
+        builder: (context, child) {
+          return SizedBox(
+            height: _indicatorSpaceAnimation.value,
+            child: child,
+          );
+        },
+        child: Stack(
+          children: [
+            _buildAnimatedBubble(
+              animation: _smallBubbleAnimation,
+              left: 8,
+              bottom: 8,
+              bubble: _buildCircleBubble(8),
+            ),
+            _buildAnimatedBubble(
+              animation: _mediumBubbleAnimation,
+              left: 10,
+              bottom: 10,
+              bubble: _buildCircleBubble(16),
+            ),
+            _buildAnimatedBubble(
+              animation: _largeBubbleAnimation,
+              left: 12,
+              bottom: 12,
+              bubble: _buildStatusBubble(),
+            ),
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildAnimatedBubble({
-     Animation<double> animation,
-     double left,
-     double bottom,
-     Widget bubble,
+    Animation<double> animation,
+    double left,
+    double bottom,
+    Widget bubble,
   }) {
     return Positioned(
       left: left,
@@ -185,7 +191,17 @@ class _TypingIndicatorState extends State<TypingIndicator>
       height: size,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: widget.bubbleColor,
+       // borderRadius: BorderRadius.circular(15),
+        gradient: LinearGradient(
+          colors: [
+            widget.bubbleFirstColor,
+            widget.bubbleSecondColor
+          ],
+          begin: Alignment.bottomLeft,
+          end: Alignment.topRight,
+          stops: [0.241, 0.5981],
+        ),
+        
       ),
     );
   }
@@ -196,9 +212,31 @@ class _TypingIndicatorState extends State<TypingIndicator>
       height: 44,
       padding: const EdgeInsets.symmetric(horizontal: 8),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(27),
-        color: widget.bubbleColor,
+        borderRadius: BorderRadius.circular(15),
+        gradient: LinearGradient(
+          colors: [
+            widget.bubbleFirstColor,
+            widget.bubbleSecondColor
+            // const Color(0xFF4F6FE8),
+            // const Color(0xFF5AABE2),
+          ],
+          begin: Alignment.bottomLeft,
+          end: Alignment.topRight,
+          stops: [0.241, 0.5981],
+        ),
+        boxShadow: [
+          BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              offset: Offset(0.5, 0.5),
+              blurRadius: 0.5,
+              spreadRadius: 1.0)
+        ],
       ),
+      // BoxDecoration(
+      //   borderRadius: BorderRadius.circular(27),
+      //   color: Colors.brown,
+      //   //color: widget.bubbleColor,
+      // ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -236,7 +274,7 @@ class _TypingIndicatorState extends State<TypingIndicator>
 class FakeMessage extends StatelessWidget {
   const FakeMessage({
     Key key,
-     this.isBig,
+    this.isBig,
   }) : super(key: key);
 
   final bool isBig;
@@ -248,7 +286,7 @@ class FakeMessage extends StatelessWidget {
       height: isBig ? 128.0 : 36.0,
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-        color: Colors.grey.shade300,
+        color: Colors.red,
       ),
     );
   }
