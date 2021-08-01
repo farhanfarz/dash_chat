@@ -282,6 +282,7 @@ class _MessageContainerState extends State<MessageContainer> {
             child: Padding(
               padding: const EdgeInsets.all(15.0),
               child: GridView.builder(
+                physics: NeverScrollableScrollPhysics(),
                   padding: EdgeInsets.only(bottom: 120),
                   itemCount: widget.buttons.length,
                   shrinkWrap: true,
@@ -424,6 +425,7 @@ class _MessageContainerState extends State<MessageContainer> {
               width: double.infinity,
               height: 330,
               child: GridView.builder(
+                physics: NeverScrollableScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 itemCount: widget.buttons.length,
                 gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
