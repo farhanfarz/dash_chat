@@ -56,7 +56,7 @@ class ChatInputToolbar extends StatelessWidget {
     this.inputCursorWidth = 2.0,
     this.inputCursorColor,
     this.onSend,
-    this.reverse = true,
+    this.reverse = false,
     this.user,
     this.alwaysShowSend = false,
     this.messageIdGenerator,
@@ -181,7 +181,7 @@ class ChatInputToolbar extends StatelessWidget {
 
       Timer(Duration(milliseconds: 150), () {
         scrollController.animateTo(
-          reverse ? 0.0 : scrollController.position.maxScrollExtent + 30.0,
+           scrollController.position.maxScrollExtent ,
           curve: Curves.easeOut,
           duration: const Duration(milliseconds: 300),
         );
