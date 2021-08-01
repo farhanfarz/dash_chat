@@ -277,7 +277,7 @@ class DashChat extends StatefulWidget {
   /// return BoxDecoration
   final BoxDecoration Function(ChatMessage, bool) messageDecorationBuilder;
 
-  ScrollToBottomStyle scrollToBottomStyle;
+   ScrollToBottomStyle scrollToBottomStyle;
 
   DashChat({
     Key key,
@@ -566,7 +566,7 @@ class DashChatState extends State<DashChat> {
                     ),
                   if (widget.chatFooterBuilder != null)
                     widget.chatFooterBuilder(),
-                  if (!widget.readOnly)
+                 // if (!widget.readOnly)
                     SafeArea(
                       child: ChatInputToolbar(
                         key: inputKey,

@@ -337,7 +337,7 @@ class _MyHomePageState extends State<MyHomePage> {
         textInputAction: TextInputAction.send,
         user: user,
         inputDecoration:
-            InputDecoration.collapsed(hintText: "Add message here..."),
+            InputDecoration.collapsed(hintText: "Enter you question here..."),
         dateFormat: DateFormat('yyyy-MMM-dd'),
         timeFormat: DateFormat('HH:mm'),
         messages: messages,

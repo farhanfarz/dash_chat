@@ -13,7 +13,7 @@ class ChatInputToolbar extends StatelessWidget {
   final bool alwaysShowSend;
   final ChatUser user;
   final Function(ChatMessage) onSend;
-  
+
   final String text;
   final Function(String) onTextChange;
   final bool inputDisabled;
@@ -40,7 +40,7 @@ class ChatInputToolbar extends StatelessWidget {
     this.scrollController,
     this.text,
     this.textInputAction,
-    this.sendOnEnter = false,
+    this.sendOnEnter = true,
     this.onTextChange,
     this.inputDisabled = false,
     this.controller,
@@ -56,7 +56,6 @@ class ChatInputToolbar extends StatelessWidget {
     this.inputCursorWidth = 2.0,
     this.inputCursorColor,
     this.onSend,
-   
     this.reverse = false,
     this.user,
     this.alwaysShowSend = false,
@@ -78,12 +77,20 @@ class ChatInputToolbar extends StatelessWidget {
     );
 
     return Container(
-      padding: inputToolbarPadding,
-      margin: inputToolbarMargin,
+      height: 50,
+      padding: EdgeInsets.only(left: 10),
+      //inputToolbarPadding,
+      margin: EdgeInsets.only(left: 10, right: 10),
+      //inputToolbarMargin,
       decoration: inputContainerStyle != null
-          ? inputContainerStyle
+          ? BoxDecoration(
+               color: Color(0xFF747480).withOpacity(0.08),
+
+              borderRadius: BorderRadius.circular(10),
+            )
           : BoxDecoration(color: Colors.white),
       child: Column(
+         
         children: <Widget>[
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -133,7 +140,7 @@ class ChatInputToolbar extends StatelessWidget {
                   ),
                 ),
               ),
-              if (showTraillingBeforeSend) ...trailling,
+             // if (showTraillingBeforeSend) ...trailling,
               if (sendButtonBuilder != null)
                 sendButtonBuilder(() async {
                   if (text.length != 0) {
