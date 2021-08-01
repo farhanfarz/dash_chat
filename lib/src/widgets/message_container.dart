@@ -248,22 +248,27 @@ class _MessageContainerState extends State<MessageContainer> {
                           (index, reply) {
                             return MapEntry(
                               index,
-                              Container(
-                                padding: EdgeInsets.all(12.0),
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFFDDA25),
-                                  borderRadius: BorderRadius.circular(12.0),
-                                ),
-                                margin: EdgeInsets.only(
-                                  left: 16.0,
-                                  bottom: 16.0,
-                                ),
-                                child: Text(
-                                  reply.title ?? '',
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'SF-UI-Display-Medium',
+                             GestureDetector(
+                      onTap: () {
+                        widget.onTapReply(reply);
+                      },
+                                child: Container(
+                                  padding: EdgeInsets.all(12.0),
+                                  decoration: BoxDecoration(
+                                    color: Color(0xFFFDDA25),
+                                    borderRadius: BorderRadius.circular(12.0),
+                                  ),
+                                  margin: EdgeInsets.only(
+                                    left: 16.0,
+                                    bottom: 16.0,
+                                  ),
+                                  child: Text(
+                                    reply.title ?? '',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'SF-UI-Display-Medium',
+                                    ),
                                   ),
                                 ),
                               ),
@@ -283,7 +288,6 @@ class _MessageContainerState extends State<MessageContainer> {
               padding: const EdgeInsets.all(15.0),
               child: GridView.builder(
                   physics: NeverScrollableScrollPhysics(),
-                  padding: EdgeInsets.only(bottom: 120),
                   itemCount: widget.buttons.length,
                   shrinkWrap: true,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

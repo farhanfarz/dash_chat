@@ -94,8 +94,32 @@ class _MyHomePageState extends State<MyHomePage> {
         uid: "25649654",
       ),
       createdAt: DateTime.now(),
-      payloadType: PayloadType.gridCarousel,
+      payloadType: PayloadType.buttons,
       buttons: <Reply>[
+        Reply(
+          title: "How to",
+          value: "How to",
+          iconPath:
+              "https://silxdigital.com/wp-content/uploads/2019/09/digital-ads-promo-icon.png",
+        ),
+        Reply(
+          title: "Check rates",
+          value: "Check rates",
+          iconPath:
+              "https://silxdigital.com/wp-content/uploads/2019/09/digital-ads-promo-icon.png",
+        ),
+        Reply(
+          title: "Set alert",
+          value: "Set alert",
+          iconPath:
+              "https://silxdigital.com/wp-content/uploads/2019/09/digital-ads-promo-icon.png",
+        ),
+        Reply(
+          title: "Disable alert",
+          value: "Disable alert",
+          iconPath:
+              "https://silxdigital.com/wp-content/uploads/2019/09/digital-ads-promo-icon.png",
+        ),
         Reply(
           title: "How to",
           value: "How to",
@@ -160,9 +184,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 remittances: 345,
                 buying: 222,
                 selling: 888,
-                icon: 'https://i.postimg.cc/yYgK7qW2/in.png')
-            
-            ),
+                icon: 'https://i.postimg.cc/yYgK7qW2/in.png')),
       ],
     ),
   ];
