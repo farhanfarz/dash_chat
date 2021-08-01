@@ -248,12 +248,13 @@ class _MessageContainerState extends State<MessageContainer> {
                           (index, reply) {
                             return MapEntry(
                               index,
-                             GestureDetector(
-                      onTap: () {
-                              FocusScope.of(context).requestFocus(focusNode);
+                              GestureDetector(
+                                onTap: () {
+                                  SystemChannels.textInput
+                                      .invokeMethod('TextInput.hide');
 
-                        widget.onTapReply(reply);
-                      },
+                                  widget.onTapReply(reply);
+                                },
                                 child: Container(
                                   padding: EdgeInsets.all(12.0),
                                   decoration: BoxDecoration(
@@ -299,7 +300,7 @@ class _MessageContainerState extends State<MessageContainer> {
                     var item = widget.buttons[index];
                     return GestureDetector(
                       onTap: () {
-                              FocusScope.of(context).requestFocus(focusNode);
+                        SystemChannels.textInput.invokeMethod('TextInput.hide');
 
                         widget.onTapReply(item);
                       },
@@ -447,7 +448,7 @@ class _MessageContainerState extends State<MessageContainer> {
                   var item = widget.buttons[index];
                   return GestureDetector(
                     onTap: () {
-                      FocusScope.of(context).requestFocus(focusNode);
+                      SystemChannels.textInput.invokeMethod('TextInput.hide');
 
                       widget.onTapReply(item);
                     },
