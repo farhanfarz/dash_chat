@@ -167,13 +167,15 @@ class ChatInputToolbar extends StatelessWidget {
 
   void _sendMessage(BuildContext context, ChatMessage message) async {
     if (text.length != 0) {
-       FocusScope.of(context).requestFocus(focusNode);
+      // FocusScope.of(context).requestFocus(focusNode);
+      SystemChannels.textInput.invokeMethod('TextInput.hide');
 
       await onSend(message);
 
       controller.text = "";
 
       onTextChange("");
+
 
       //FocusScope.of(context).requestFocus(focusNode);
 
