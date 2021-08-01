@@ -56,7 +56,7 @@ class ChatInputToolbar extends StatelessWidget {
     this.inputCursorWidth = 2.0,
     this.inputCursorColor,
     this.onSend,
-    this.reverse = false,
+    this.reverse = true,
     this.user,
     this.alwaysShowSend = false,
     this.messageIdGenerator,
