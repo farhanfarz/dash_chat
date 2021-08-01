@@ -84,13 +84,11 @@ class ChatInputToolbar extends StatelessWidget {
       //inputToolbarMargin,
       decoration: inputContainerStyle != null
           ? BoxDecoration(
-               color: Color(0xFF747480).withOpacity(0.08),
-
+              color: Color(0xFF747480).withOpacity(0.08),
               borderRadius: BorderRadius.circular(10),
             )
           : BoxDecoration(color: Colors.white),
       child: Column(
-         
         children: <Widget>[
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -140,7 +138,7 @@ class ChatInputToolbar extends StatelessWidget {
                   ),
                 ),
               ),
-             // if (showTraillingBeforeSend) ...trailling,
+              // if (showTraillingBeforeSend) ...trailling,
               if (sendButtonBuilder != null)
                 sendButtonBuilder(() async {
                   if (text.length != 0) {
@@ -169,13 +167,15 @@ class ChatInputToolbar extends StatelessWidget {
 
   void _sendMessage(BuildContext context, ChatMessage message) async {
     if (text.length != 0) {
+       FocusScope.of(context).requestFocus(focusNode);
+
       await onSend(message);
 
       controller.text = "";
 
       onTextChange("");
 
-      FocusScope.of(context).requestFocus(focusNode);
+      //FocusScope.of(context).requestFocus(focusNode);
 
       Timer(Duration(milliseconds: 150), () {
         scrollController.animateTo(

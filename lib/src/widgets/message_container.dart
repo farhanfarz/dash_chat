@@ -250,6 +250,8 @@ class _MessageContainerState extends State<MessageContainer> {
                               index,
                              GestureDetector(
                       onTap: () {
+                              FocusScope.of(context).requestFocus(focusNode);
+
                         widget.onTapReply(reply);
                       },
                                 child: Container(
@@ -297,6 +299,8 @@ class _MessageContainerState extends State<MessageContainer> {
                     var item = widget.buttons[index];
                     return GestureDetector(
                       onTap: () {
+                              FocusScope.of(context).requestFocus(focusNode);
+
                         widget.onTapReply(item);
                       },
                       child: Container(
@@ -443,6 +447,8 @@ class _MessageContainerState extends State<MessageContainer> {
                   var item = widget.buttons[index];
                   return GestureDetector(
                     onTap: () {
+                      FocusScope.of(context).requestFocus(focusNode);
+
                       widget.onTapReply(item);
                     },
                     child: Container(
