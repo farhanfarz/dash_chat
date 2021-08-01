@@ -290,49 +290,54 @@ class _MessageContainerState extends State<MessageContainer> {
                   ),
                   itemBuilder: (BuildContext context, int index) {
                     var item = widget.buttons[index];
-                    return Container(
-                      height: 60,
-                      margin: EdgeInsets.all(7),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(15.0),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color(0xFFD2DEE2).withOpacity(0.4),
-                            blurRadius: 30.0, // soften the shadow
-                            spreadRadius: 0.0, //extend the shadow
-                            offset: Offset(
-                              0.0, // Move to right 10  horizontally
-                              8.0, // Move to bottom 10 Vertically
-                            ),
-                          ),
-                        ],
-                      ),
+                    return GestureDetector(
+                    onTap: () {
+                      widget.onTapReply(item);
+                    },
                       child: Container(
-                        padding: EdgeInsets.only(left: 15, top: 15, bottom: 15),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              width: 44,
-                              height: 44,
-                              child: FadeInImage.memoryNetwork(
-                                height: 44,
-                                width: 44,
-                                fit: BoxFit.contain,
-                                placeholder: kTransparentImage,
-                                image: item.iconPath ?? '',
+                        height: 60,
+                        margin: EdgeInsets.all(7),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(15.0),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color(0xFFD2DEE2).withOpacity(0.4),
+                              blurRadius: 30.0, // soften the shadow
+                              spreadRadius: 0.0, //extend the shadow
+                              offset: Offset(
+                                0.0, // Move to right 10  horizontally
+                                8.0, // Move to bottom 10 Vertically
                               ),
                             ),
-                            Text(
-                              item.title,
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w600,
-                                  color: Color(0xDE05046A)),
-                            )
                           ],
+                        ),
+                        child: Container(
+                          padding: EdgeInsets.only(left: 15, top: 15, bottom: 15),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: 44,
+                                height: 44,
+                                child: FadeInImage.memoryNetwork(
+                                  height: 44,
+                                  width: 44,
+                                  fit: BoxFit.contain,
+                                  placeholder: kTransparentImage,
+                                  image: item.iconPath ?? '',
+                                ),
+                              ),
+                              Text(
+                                item.title,
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w600,
+                                    color: Color(0xDE05046A)),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     );
