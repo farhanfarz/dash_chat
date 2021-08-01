@@ -81,25 +81,25 @@ class MessageContainer extends StatefulWidget {
 
   final bool isSomeoneTyping;
 
-  const MessageContainer(
-      {this.message,
-      this.timeFormat,
-      this.constraints,
-      this.messageImageBuilder,
-      this.messageTextBuilder,
-      this.messageTimeBuilder,
-      this.messageContainerDecoration,
-      this.parsePatterns = const <MatchText>[],
-      this.textBeforeImage = true,
-      this.isUser,
-      this.messageButtonsBuilder,
-      this.buttons,
-      this.payloadType = PayloadType.none,
-      this.messagePadding = const EdgeInsets.all(8.0),
-      this.messageDecorationBuilder,
-      this.onTapReply,
-      this.isSomeoneTyping = false,
-      });
+  const MessageContainer({
+    this.message,
+    this.timeFormat,
+    this.constraints,
+    this.messageImageBuilder,
+    this.messageTextBuilder,
+    this.messageTimeBuilder,
+    this.messageContainerDecoration,
+    this.parsePatterns = const <MatchText>[],
+    this.textBeforeImage = true,
+    this.isUser,
+    this.messageButtonsBuilder,
+    this.buttons,
+    this.payloadType = PayloadType.none,
+    this.messagePadding = const EdgeInsets.all(8.0),
+    this.messageDecorationBuilder,
+    this.onTapReply,
+    this.isSomeoneTyping = false,
+  });
 
   @override
   _MessageContainerState createState() => _MessageContainerState();
@@ -259,7 +259,7 @@ class _MessageContainerState extends State<MessageContainer> {
                                   bottom: 16.0,
                                 ),
                                 child: Text(
-                                  reply.value ?? '',
+                                  reply.title ?? '',
                                   style: TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.bold,
@@ -282,7 +282,7 @@ class _MessageContainerState extends State<MessageContainer> {
             child: Padding(
               padding: const EdgeInsets.all(15.0),
               child: GridView.builder(
-                physics: NeverScrollableScrollPhysics(),
+                  physics: NeverScrollableScrollPhysics(),
                   padding: EdgeInsets.only(bottom: 120),
                   itemCount: widget.buttons.length,
                   shrinkWrap: true,
@@ -292,9 +292,9 @@ class _MessageContainerState extends State<MessageContainer> {
                   itemBuilder: (BuildContext context, int index) {
                     var item = widget.buttons[index];
                     return GestureDetector(
-                    onTap: () {
-                      widget.onTapReply(item);
-                    },
+                      onTap: () {
+                        widget.onTapReply(item);
+                      },
                       child: Container(
                         height: 60,
                         margin: EdgeInsets.all(7),
@@ -314,7 +314,8 @@ class _MessageContainerState extends State<MessageContainer> {
                           ],
                         ),
                         child: Container(
-                          padding: EdgeInsets.only(left: 15, top: 15, bottom: 15),
+                          padding:
+                              EdgeInsets.only(left: 15, top: 15, bottom: 15),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -595,7 +596,9 @@ class _MessageContainerState extends State<MessageContainer> {
                                   //     fontWeight: FontWeight.w600),
                                   ),
                               Text(
-                                  widget.buttons.first.rateObject?.exRate.toString() ?? '',
+                                  widget.buttons.first.rateObject?.exRate
+                                          .toString() ??
+                                      '',
                                   style: TextStyle(
                                     fontSize: 20,
                                     color: Color.fromRGBO(28, 43, 98, 1),
@@ -637,7 +640,9 @@ class _MessageContainerState extends State<MessageContainer> {
                                   height: 5,
                                 ),
                                 Text(
-                                  widget.buttons.first.rateObject?.buying.toString() ?? '',
+                                  widget.buttons.first.rateObject?.buying
+                                          .toString() ??
+                                      '',
                                   style: TextStyle(
                                     color: Color.fromRGBO(28, 43, 98, 1),
                                     letterSpacing: -0.5,
@@ -666,7 +671,8 @@ class _MessageContainerState extends State<MessageContainer> {
                                   height: 5,
                                 ),
                                 Text(
-                                  widget.buttons.first.rateObject?.selling.toString() ??
+                                  widget.buttons.first.rateObject?.selling
+                                          .toString() ??
                                       '',
                                   style: TextStyle(
                                     color: Color.fromRGBO(28, 43, 98, 1),
@@ -696,8 +702,8 @@ class _MessageContainerState extends State<MessageContainer> {
                                   height: 5,
                                 ),
                                 Text(
-                                  widget.buttons.first.rateObject
-                                          ?.remittances.toString() ??
+                                  widget.buttons.first.rateObject?.remittances
+                                          .toString() ??
                                       '',
                                   style: TextStyle(
                                     color: Color.fromRGBO(28, 43, 98, 1),
