@@ -384,9 +384,9 @@ class _MessageContainerState extends State<MessageContainer> {
                                         //   image: reply.iconPath,
                                         //   width: 1000,
                                         // ),
-                                        if (reply.iconPath != null &&
-                                            reply.iconPath.isNotEmpty)
-                                          Image.network(reply.iconPath,
+                                        if (reply.imagePath != null &&
+                                            reply.imagePath.isNotEmpty)
+                                          Image.network(reply.imagePath,
                                               fit: BoxFit.cover, width: 1000.0),
 
                                         Positioned(

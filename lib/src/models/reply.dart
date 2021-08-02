@@ -12,6 +12,8 @@ class Reply {
 
   String iconPath;
 
+  String imagePath;
+
   /// If no messageId is provided it will use [UUID v4] to
   /// set a default id for that message
   dynamic messageId;
@@ -26,6 +28,7 @@ class Reply {
     this.title,
     String messageId,
     this.iconPath,
+    this.imagePath,
     this.value,
     this.src,
     this.rateObject,
@@ -39,6 +42,7 @@ class Reply {
     value = json['value'];
     messageId = json['messageId'];
     iconPath = json['iconPath'];
+    imagePath = json['imagePath'];
     src = json['src'];
     rateObject = json['rateObject'];
   }
@@ -50,6 +54,7 @@ class Reply {
     data['title'] = title;
     data['value'] = value;
     data['iconPath'] = iconPath;
+    data['imagePath'] = imagePath;
     data['src'] = src;
     data['rateObject'] = rateObject;
 
