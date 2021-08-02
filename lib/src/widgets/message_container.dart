@@ -435,7 +435,7 @@ class _MessageContainerState extends State<MessageContainer> {
               width: double.infinity,
               height: 330,
               child: GridView.builder(
-                physics: NeverScrollableScrollPhysics(),
+                physics: ClampingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 itemCount: widget.buttons.length,
                 gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
