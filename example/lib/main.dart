@@ -365,7 +365,7 @@ class _MyHomePageState extends State<MyHomePage> {
         messages: messages,
         showUserAvatar: false,
         showAvatarForEveryMessage: false,
-        scrollToBottom: false,
+        scrollToBottom: true,
         onPressAvatar: (ChatUser user) {
           print("OnPressAvatar: ${user.name}");
         },
