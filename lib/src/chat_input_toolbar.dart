@@ -104,7 +104,6 @@ class ChatInputToolbar extends StatelessWidget {
                     textDirection: textDirection,
                     child: TextField(
                       onTap: () {
-                        onSendTextfieild();
                         // Timer(
                         //     Duration(milliseconds: 300),
                         //     () => scrollController.jumpTo(
@@ -199,16 +198,11 @@ class ChatInputToolbar extends StatelessWidget {
       controller.text = "";
 
       onTextChange("");
-      onSendTextfieild();
 
       //FocusScope.of(context).requestFocus(focusNode);
 
-      Timer(Duration(milliseconds: 150), () {
-        scrollController.animateTo(
-          scrollController.position.maxScrollExtent,
-          curve: Curves.easeOut,
-          duration: const Duration(milliseconds: 300),
-        );
+      Timer(Duration(milliseconds: 300), () {
+        onSendTextfieild();
       });
     }
   }
