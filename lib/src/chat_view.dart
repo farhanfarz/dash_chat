@@ -605,12 +605,10 @@ class DashChatState extends State<DashChat> {
                       focusNode: inputFocusNode,
                       reverse: widget.inverted,
                       onSendTextfieild: () {
-                        ScrollToBottom(
-                          onScrollToBottomPress: widget.onScrollToBottomPress,
-                          scrollToBottomStyle: widget.scrollToBottomStyle,
-                          scrollController: scrollController,
-                          inverted: widget.inverted,
-                          
+                        scrollController.animateTo(
+                          scrollController.position.maxScrollExtent + 25.0,
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeInOut,
                         );
                       },
                     ),
