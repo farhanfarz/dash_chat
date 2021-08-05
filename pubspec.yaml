@@ -15,7 +15,7 @@ dependencies:
   transparent_image: ^2.0.0
   carousel_slider: ^4.0.0
   #video_player: ^2.1.9
-  ext_video_player: ^0.0.6
+  ext_video_player: ^0.0.4
   flutter_svg: any
   
 
@@ -24,9 +24,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-dependency_overrides:
-  youtube_explode_dart:
-    version: "1.8.0"
+
     
 # The following section is specific to Flutter.
 

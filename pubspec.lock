@@ -309,7 +309,7 @@ packages:
     source: hosted
     version: "4.5.1"
   youtube_explode_dart:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
       name: youtube_explode_dart
       url: "https://pub.dartlang.org"
