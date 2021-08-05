@@ -15,8 +15,8 @@ dependencies:
   transparent_image: ^2.0.0
   carousel_slider: ^4.0.0
   #video_player: ^2.1.9
-  ext_video_player: ^0.0.4
-  flutter_svg: ^0.20.0-nullsafety.3
+  ext_video_player: ^0.0.6
+  flutter_svg: any
   
 
 

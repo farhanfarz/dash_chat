@@ -88,13 +88,72 @@ class _MyHomePageState extends State<MyHomePage> {
       ],
     ),
     ChatMessage(
-      text: "This is a quick reply example.",
+      text: "This is a buttons reply example.",
       user: ChatUser(
         name: "Mrfatty",
         uid: "25649654",
       ),
       createdAt: DateTime.now(),
       payloadType: PayloadType.buttons,
+      buttons: <Reply>[
+        Reply(
+          title: "How to",
+          value: "How to",
+          iconPath:
+              "https://silxdigital.com/wp-content/uploads/2019/09/digital-ads-promo-icon.png",
+        ),
+        Reply(
+          title: "Check rates",
+          value: "Check rates",
+          iconPath:
+              "https://silxdigital.com/wp-content/uploads/2019/09/digital-ads-promo-icon.png",
+        ),
+        Reply(
+          title: "Set alert",
+          value: "Set alert",
+          iconPath:
+              "https://silxdigital.com/wp-content/uploads/2019/09/digital-ads-promo-icon.png",
+        ),
+        Reply(
+          title: "Disable alert",
+          value: "Disable alert",
+          iconPath:
+              "https://silxdigital.com/wp-content/uploads/2019/09/digital-ads-promo-icon.png",
+        ),
+        Reply(
+          title: "How to",
+          value: "How to",
+          iconPath:
+              "https://silxdigital.com/wp-content/uploads/2019/09/digital-ads-promo-icon.png",
+        ),
+        Reply(
+          title: "Check rates",
+          value: "Check rates",
+          iconPath:
+              "https://silxdigital.com/wp-content/uploads/2019/09/digital-ads-promo-icon.png",
+        ),
+        Reply(
+          title: "Set alert",
+          value: "Set alert",
+          iconPath:
+              "https://silxdigital.com/wp-content/uploads/2019/09/digital-ads-promo-icon.png",
+        ),
+        Reply(
+          title: "Disable alert",
+          value: "Disable alert",
+          iconPath:
+              "https://silxdigital.com/wp-content/uploads/2019/09/digital-ads-promo-icon.png",
+        ),
+      ],
+    ),
+    ChatMessage(
+      text: "This is a grid carousel reply example.",
+      user: ChatUser(
+        name: "Mrfatty",
+        uid: "25649654",
+      ),
+      createdAt: DateTime.now(),
+      payloadType: PayloadType.gridCarousel,
       buttons: <Reply>[
         Reply(
           title: "How to",
@@ -157,9 +216,10 @@ class _MyHomePageState extends State<MyHomePage> {
       buttons: <Reply>[
         Reply(
           title: "", value: "", iconPath: "",
-          src: 
-          //"https://www.youtube.com/watch?v=q0EpEK6MkAI",
-          "https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4",
+          src:
+              //'https://www.youtube.com/watch?v=YFCSODyFxbE',
+              //"https://www.youtube.com/watch?v=q0EpEK6MkAI",
+              "https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4",
           // iconPath: "https://www.youtube.com/watch?v=YFCSODyFxbE",
         ),
       ],
