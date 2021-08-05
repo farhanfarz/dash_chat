@@ -7,7 +7,7 @@ packages:
       name: async
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.5.0"
+    version: "2.6.1"
   boolean_selector:
     dependency: transitive
     description:
@@ -72,12 +72,12 @@ packages:
     source: hosted
     version: "0.16.2"
   equatable:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
       name: equatable
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "1.2.6"
   ext_video_player:
     dependency: "direct main"
     description:
@@ -157,7 +157,7 @@ packages:
     source: hosted
     version: "0.6.3"
   json_annotation:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
       name: json_annotation
       url: "https://pub.dartlang.org"
@@ -223,7 +223,7 @@ packages:
       name: source_span
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.8.0"
+    version: "1.8.1"
   stack_trace:
     dependency: transitive
     description:
@@ -258,7 +258,7 @@ packages:
       name: test_api
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.19"
+    version: "0.3.0"
   transparent_image:
     dependency: "direct main"
     description:
@@ -309,7 +309,7 @@ packages:
     source: hosted
     version: "4.5.1"
   youtube_explode_dart:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
       name: youtube_explode_dart
       url: "https://pub.dartlang.org"
