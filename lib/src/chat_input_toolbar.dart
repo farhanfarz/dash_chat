@@ -33,6 +33,7 @@ class ChatInputToolbar extends StatelessWidget {
   final bool sendOnEnter;
   final bool reverse;
   final TextInputAction textInputAction;
+  final bool isEnableSend;
 
   ChatInputToolbar({
     Key key,
@@ -67,10 +68,13 @@ class ChatInputToolbar extends StatelessWidget {
     this.inputToolbarPadding = const EdgeInsets.all(0.0),
     this.inputToolbarMargin = const EdgeInsets.all(0.0),
     this.onSendTextfieild,
+    this.isEnableSend = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    bool isEnableTextField = false;
+
     ChatMessage message = ChatMessage(
       text: text,
       user: user,
@@ -79,29 +83,26 @@ class ChatInputToolbar extends StatelessWidget {
     );
 
     return Container(
-      height: 50,
-      padding: EdgeInsets.only(
-        left: 10,
-      ),
-      //inputToolbarPadding,
-      margin: EdgeInsets.only(left: 10, right: 10),
-      //inputToolbarMargin,
-      decoration: inputContainerStyle != null
-          ? BoxDecoration(
-              color: Color(0xFF747480).withOpacity(0.08),
-              borderRadius: BorderRadius.circular(10),
-            )
-          : BoxDecoration(color: Colors.white),
-      child: Column(
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              ...leading,
-              Expanded(
+      height: 80,
+      child: Padding(
+        padding: EdgeInsets.only(left: 12.0, right: 12),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            // ...leading,
+            Expanded(
+              child: Container(
+                height: 36,
+                decoration: BoxDecoration(
+                  color: Color.fromRGBO(118, 118, 128, 0.12),
+                  borderRadius: BorderRadius.circular(10),
+                ),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 8.0,
+                    vertical: 8,
+                  ),
                   child: Directionality(
                     textDirection: textDirection,
                     child: TextField(
@@ -126,6 +127,7 @@ class ChatInputToolbar extends StatelessWidget {
                           ? inputDecoration
                           : InputDecoration.collapsed(
                               hintText: "",
+                              hintStyle: TextStyle(color: Color(0xDE05046A)),
                               fillColor: Colors.white,
                             ),
                       textCapitalization: textCapitalization,
@@ -142,35 +144,54 @@ class ChatInputToolbar extends StatelessWidget {
                   ),
                 ),
               ),
-              // if (showTraillingBeforeSend) ...trailling,
-              if (sendButtonBuilder != null)
-                sendButtonBuilder(() async {
-                  if (text.length != 0) {
-                    await onSend(message);
-                    onSendTextfieild();
+            ),
+            SizedBox(
+              width: 12,
+            ),
+            if (sendButtonBuilder != null)
+              sendButtonBuilder(() async {
+                if (text.length != 0) {
+                  await onSend(message);
+                  onSendTextfieild();
 
-                    controller.text = "";
+                  controller.text = "";
 
-                    onTextChange("");
-                  }
-                })
-              else
-                IconButton(
-                  icon: Icon(
-                    Icons.send,
-                    color: Color(0xFFFDDA25),
-                  ),
-                  onPressed: alwaysShowSend || text.length != 0
-                      ? () => _sendMessage(context, message)
-                      : null,
+                  onTextChange("");
+                }
+              })
+            else
+              Opacity(
+                opacity: isEnableSend ? 1 : 0.4,
+                child: FadeInImage.memoryNetwork(
+                  height: 30,
+                  width: 30,
+                  fit: BoxFit.contain,
+                  placeholder: kTransparentImage,
+                  image: 'https://i.postimg.cc/cCwNHNbN/Send.png' ?? '',
                 ),
-              if (!showTraillingBeforeSend) ...trailling,
-            ],
-          ),
-           if (inputFooterBuilder != null) inputFooterBuilder()
-        ],
+              ),
+
+            if (!showTraillingBeforeSend) ...trailling,
+          ],
+        ),
       ),
     );
+    // if (sendButtonBuilder != null)
+    //   sendButtonBuilder(() async {
+    //     if (text.length != 0) {
+    //       await onSend(message);
+    //       onSendTextfieild();
+
+    //       controller.text = "";
+
+    //       onTextChange("");
+    //     }
+    //   })
+    // else
+
+    // if (!showTraillingBeforeSend) ...trailling,
+    // ],
+    // );
   }
 
   void _sendMessage(BuildContext context, ChatMessage message) async {

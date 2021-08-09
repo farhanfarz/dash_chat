@@ -212,7 +212,7 @@ class _TypingIndicatorState extends State<TypingIndicator>
       height: 30,
       padding: const EdgeInsets.symmetric(horizontal: 8),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(12),
         gradient: LinearGradient(
           colors: [widget.bubbleFirstColor, widget.bubbleSecondColor],
           begin: Alignment.bottomLeft,

@@ -381,6 +381,7 @@ class DashChatState extends State<DashChat> {
   String get messageInput => _text;
   bool _initialLoad = true;
   Timer _timer;
+  bool isEnableSend = false;
 
   void onTextChange(String text) {
     if (visible) {
@@ -388,6 +389,7 @@ class DashChatState extends State<DashChat> {
     }
     setState(() {
       this._text = text;
+      this.isEnableSend = text.isNotEmpty;
     });
   }
 
@@ -532,12 +534,12 @@ class DashChatState extends State<DashChat> {
                     messageButtonsBuilder: widget.messageButtonsBuilder,
                     messageDecorationBuilder: widget.messageDecorationBuilder,
                   ),
-                  Align(
-                    alignment: Alignment.bottomLeft,
-                    child: TypingIndicator(
-                      showIndicator: widget.isSomeOneTyping,
-                    ),
-                  ),
+                  // Align(
+                  //   alignment: Alignment.bottomLeft,
+                  //   child: TypingIndicator(
+                  //     showIndicator: widget.isSomeOneTyping,
+                  //   ),
+                  // ),
                   if (widget.messages.length != 0 &&
                       widget.messages.last.user.uid != widget.user.uid &&
                       widget.messages.last.quickReplies != null)
@@ -595,6 +597,7 @@ class DashChatState extends State<DashChat> {
                       onTextChange: widget.onTextChange != null
                           ? widget.onTextChange
                           : onTextChange,
+                      isEnableSend: isEnableSend,
                       inputDisabled: widget.inputDisabled,
                       leading: widget.leading,
                       trailling: widget.trailing,

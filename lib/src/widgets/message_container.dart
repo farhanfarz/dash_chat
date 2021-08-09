@@ -95,7 +95,7 @@ class MessageContainer extends StatefulWidget {
     this.messageButtonsBuilder,
     this.buttons,
     this.payloadType = PayloadType.none,
-    this.messagePadding = const EdgeInsets.only(left: 8.0, right: 8.0),
+    this.messagePadding = const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 8.0),
     this.messageDecorationBuilder,
     this.onTapReply,
     this.isSomeoneTyping = false,
@@ -171,9 +171,10 @@ class _MessageContainerState extends State<MessageContainer> {
               children: [
                 Container(
                   //color: Colors.red,
+
                   margin:
                       EdgeInsets.only(bottom: 4, left: verticalSpacing, top: 4),
-                  padding: widget.messagePadding,
+                  padding: EdgeInsets.fromLTRB(8.0, 14.0, 8.0, 14.0),
                   decoration: widget.messageDecorationBuilder
                           ?.call(widget.message, widget.isUser) ??
                       widget.messageContainerDecoration?.copyWith(
@@ -311,10 +312,7 @@ class _MessageContainerState extends State<MessageContainer> {
                                           reply.title ?? '',
                                           // textAlign: TextAlign.center,
                                           style: TextStyle(
-                                            // fontFamily:
-                                            //     "SF-UI-Display-Semibold",
-                                            fontSize: 14,
-                                            letterSpacing: 0.5,
+                                            fontSize: 14.0,
                                             fontWeight: FontWeight.w600,
                                             color: Color(0xDE05046A),
                                           ),
@@ -344,10 +342,7 @@ class _MessageContainerState extends State<MessageContainer> {
             //height: 300,
             child: Padding(
               padding: EdgeInsets.only(
-                  left: 6,
-                  top: verticalSpacing,
-                  right: 6.0,
-                  bottom: verticalSpacing),
+                  left: 6, top: verticalSpacing, right: 6.0, bottom: 0.0),
               child: GridView.builder(
                   padding: EdgeInsets.zero,
                   physics: NeverScrollableScrollPhysics(),
@@ -366,7 +361,8 @@ class _MessageContainerState extends State<MessageContainer> {
                         widget.onTapReply(item);
                       },
                       child: Container(
-                        margin: EdgeInsets.all(5),
+                        margin: EdgeInsets.fromLTRB(7.5, 7.5, 7.5,
+                            (index >= widget.buttons.length - 2) ? 15 : 7.5),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(12.0),
@@ -868,13 +864,10 @@ class _MessageContainerState extends State<MessageContainer> {
           parse: widget.parsePatterns,
           text: widget.message.text,
           style: TextStyle(
-              color: Color(0xFFFFFFFF),
-              // widget.message.user.color ??
-              //     (widget.isUser ? Colors.white70 : Colors.black87),
-              fontSize: 15,
-              fontWeight: FontWeight.w400,
-              letterSpacing: 0.5,
-              fontFamily: 'SF-UI-Display-Regular'),
+            color: Colors.white,
+            fontSize: 15.0,
+            fontWeight: FontWeight.w400,
+          ),
         );
   }
 

@@ -135,7 +135,7 @@ class _MessageListViewState extends State<MessageListView> {
               alignment: AlignmentDirectional.topCenter,
               children: [
                 Container(
-                  // color: Colors.purple,
+                  color: Color(0xFFF5F8F9),
                   child: ListView.builder(
                     padding: EdgeInsets.zero,
                     controller: widget.scrollController,

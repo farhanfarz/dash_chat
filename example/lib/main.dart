@@ -338,7 +338,7 @@ class _MyHomePageState extends State<MyHomePage> {
             );
           } else {
             decoration = BoxDecoration(
-              borderRadius: BorderRadius.circular(15.0),
+              borderRadius: BorderRadius.circular(12.0),
               gradient: LinearGradient(
                 colors: [
                   const Color(0xFF4F6FE8),
