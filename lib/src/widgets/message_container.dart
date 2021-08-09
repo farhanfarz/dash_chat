@@ -474,8 +474,8 @@ class _MessageContainerState extends State<MessageContainer> {
                                               reply.title,
                                               style: TextStyle(
                                                 color: Colors.white,
-                                                fontSize: 20.0,
-                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16.0,
+                                                fontWeight: FontWeight.w600,
                                               ),
                                             ),
                                           ),
@@ -546,6 +546,7 @@ class _MessageContainerState extends State<MessageContainer> {
                         style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w600,
+                          letterSpacing: 0.15,
                           color: Color(0xDE05046A),
                         ),
                       ),
@@ -556,6 +557,7 @@ class _MessageContainerState extends State<MessageContainer> {
                           style: TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.w500,
+                            letterSpacing: 0.4,
                             color: Color(0xDE05046A),
                           ),
                         ),
@@ -568,10 +570,7 @@ class _MessageContainerState extends State<MessageContainer> {
           ),
         if (widget.payloadType == PayloadType.video)
           Padding(
-            padding: EdgeInsets.only(
-                top: verticalSpacing,
-                bottom: verticalSpacing,
-                right: verticalSpacing),
+            padding: EdgeInsets.all(verticalSpacing),
             child: SizedBox(
               height: 240,
               child: PhysicalModel(
@@ -612,10 +611,7 @@ class _MessageContainerState extends State<MessageContainer> {
           ),
         if (widget.payloadType == PayloadType.card)
           Container(
-            margin: EdgeInsets.only(
-                top: verticalSpacing,
-                bottom: verticalSpacing,
-                right: verticalSpacing),
+            margin: EdgeInsets.all(verticalSpacing),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(15.0),
