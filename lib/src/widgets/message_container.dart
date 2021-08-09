@@ -95,7 +95,7 @@ class MessageContainer extends StatefulWidget {
     this.messageButtonsBuilder,
     this.buttons,
     this.payloadType = PayloadType.none,
-    this.messagePadding = const EdgeInsets.all(8.0),
+    this.messagePadding = const EdgeInsets.only(left: 8.0, right: 8.0),
     this.messageDecorationBuilder,
     this.onTapReply,
     this.isSomeoneTyping = false,
@@ -151,6 +151,12 @@ class _MessageContainerState extends State<MessageContainer> {
         BoxConstraints(
             maxHeight: MediaQuery.of(context).size.height,
             maxWidth: MediaQuery.of(context).size.width);
+    var size = MediaQuery.of(context).size;
+
+    /*24 is for notification bar on Android*/
+    final double itemHeight = 150;
+    //(size.height - kToolbarHeight - 24) / 2;
+    final double itemWidth = size.width / 2;
 
     return Column(
       crossAxisAlignment:
@@ -159,12 +165,15 @@ class _MessageContainerState extends State<MessageContainer> {
         if (widget.message.text != null && widget.message.text.isNotEmpty)
           ConstrainedBox(
             constraints: BoxConstraints(
-              maxWidth: constraints.maxWidth * 0.8,
-            ),
+                // maxWidth: constraints.maxWidth * 0.8,
+                ),
             child: Stack(
               children: [
                 Container(
                   //color: Colors.red,
+                  margin:
+                      EdgeInsets.only(bottom: 4, left: verticalSpacing, top: 4),
+                  padding: widget.messagePadding,
                   decoration: widget.messageDecorationBuilder
                           ?.call(widget.message, widget.isUser) ??
                       widget.messageContainerDecoration?.copyWith(
@@ -179,10 +188,7 @@ class _MessageContainerState extends State<MessageContainer> {
                                 : Color.fromRGBO(225, 225, 225, 1)),
                         borderRadius: BorderRadius.circular(5.0),
                       ),
-                  margin: EdgeInsets.only(
-                    bottom: 0.0,
-                  ),
-                  padding: widget.messagePadding,
+
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: widget.isUser
@@ -208,30 +214,38 @@ class _MessageContainerState extends State<MessageContainer> {
                               widget.messageButtonsBuilder(widget.message),
                           mainAxisSize: MainAxisSize.min,
                         ),
-                      widget.messageTimeBuilder?.call(
-                            widget.timeFormat
-                                    ?.format(widget.message.createdAt) ??
-                                DateFormat('HH:mm:ss')
-                                    .format(widget.message.createdAt),
-                            widget.message,
-                          ) ??
-                          Padding(
-                            padding: EdgeInsets.only(top: 5.0),
-                            child: Text(
-                              widget.timeFormat != null
-                                  ? widget.timeFormat
-                                      .format(widget.message.createdAt)
-                                  : DateFormat('HH:mm:ss')
-                                      .format(widget.message.createdAt),
-                              style: TextStyle(
-                                fontSize: 10.0,
-                                color: widget.message.user.color ??
-                                    (widget.isUser
-                                        ? Colors.white70
-                                        : Colors.black87),
-                              ),
-                            ),
-                          )
+                      // widget.messageTimeBuilder?.call(
+                      //       widget.timeFormat
+                      //               ?.format(widget.message.createdAt) ??
+                      //           DateFormat('HH:mm:ss')
+                      //               .format(widget.message.createdAt),
+                      //       widget.message,
+                      //     ) ??
+                      //     Padding(
+                      //       padding: EdgeInsets.only(top: 5.0),
+                      //       child: Text(
+                      //         widget.timeFormat != null
+                      //             ? widget.timeFormat
+                      //                 .format(widget.message.createdAt)
+                      //             : DateFormat('HH:mm:ss')
+                      //                 .format(widget.message.createdAt),
+                      //         style: TextStyle(
+                      //             color: Color(0xFFFFFFFF),
+                      //             // widget.message.user.color ??
+                      //             //     (widget.isUser ? Colors.white70 : Colors.black87),
+                      //             fontSize: 12,
+                      //             fontWeight: FontWeight.w400,
+                      //             letterSpacing: 0.5,
+                      //             fontFamily: 'SF-UI-Display-Regular'),
+                      //         // TextStyle(
+                      //         //   fontSize: 10.0,
+                      //         //   color: widget.message.user.color ??
+                      //         //       (widget.isUser
+                      //         //           ? Colors.white70
+                      //         //           : Colors.black87),
+                      //         // ),
+                      //       ),
+                      //     )
                     ],
                   ),
                 ),
@@ -249,10 +263,11 @@ class _MessageContainerState extends State<MessageContainer> {
               ],
             ),
           ),
-        _buildMessageImage(),
+        // _buildMessageImage(),
         if (widget.payloadType == PayloadType.quickReplies)
           Padding(
-            padding: EdgeInsets.only(top: 10, bottom: 10),
+            padding:
+                EdgeInsets.only(top: 11, bottom: 11, left: verticalSpacing),
             child: SizedBox(
               height: 38,
               child: CustomScrollView(
@@ -296,10 +311,18 @@ class _MessageContainerState extends State<MessageContainer> {
                                           reply.title ?? '',
                                           // textAlign: TextAlign.center,
                                           style: TextStyle(
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily: 'SF-UI-Display-Medium',
+                                            // fontFamily:
+                                            //     "SF-UI-Display-Semibold",
+                                            fontSize: 14,
+                                            letterSpacing: 0.5,
+                                            fontWeight: FontWeight.w600,
+                                            color: Color(0xDE05046A),
                                           ),
+                                          // TextStyle(
+                                          //   fontSize: 15,
+                                          //   fontWeight: FontWeight.bold,
+                                          //   fontFamily: 'SF-UI-Display-Medium',
+                                          // ),
                                         ),
                                       ),
                                     ),
@@ -318,17 +341,21 @@ class _MessageContainerState extends State<MessageContainer> {
           ),
         if (widget.payloadType == PayloadType.buttons)
           Container(
+            //height: 300,
             child: Padding(
               padding: EdgeInsets.only(
-                top: 6.0,
-                bottom: 6.0,
-              ),
+                  left: 6,
+                  top: verticalSpacing,
+                  right: 6.0,
+                  bottom: verticalSpacing),
               child: GridView.builder(
+                  padding: EdgeInsets.zero,
                   physics: NeverScrollableScrollPhysics(),
                   itemCount: widget.buttons.length,
                   shrinkWrap: true,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
+                    childAspectRatio: (itemWidth / itemHeight),
                   ),
                   itemBuilder: (BuildContext context, int index) {
                     var item = widget.buttons[index];
@@ -339,11 +366,10 @@ class _MessageContainerState extends State<MessageContainer> {
                         widget.onTapReply(item);
                       },
                       child: Container(
-                        // height: 60,
-                        margin: EdgeInsets.all(6),
+                        margin: EdgeInsets.all(5),
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          borderRadius: BorderRadius.circular(15.0),
+                          borderRadius: BorderRadius.circular(12.0),
                           boxShadow: [
                             BoxShadow(
                               color: Color(0xFFD2DEE2).withOpacity(0.4),
@@ -360,15 +386,13 @@ class _MessageContainerState extends State<MessageContainer> {
                           padding: EdgeInsets.only(
                             left: 15,
                             top: verticalSpacing,
-                            bottom: verticalSpacing,
+                            bottom: 15,
                           ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Container(
-                                width: 44,
-                                height: 44,
                                 child: FadeInImage.memoryNetwork(
                                   height: 44,
                                   width: 44,
@@ -381,6 +405,7 @@ class _MessageContainerState extends State<MessageContainer> {
                                 item.title,
                                 style: TextStyle(
                                   fontSize: 15,
+                                  letterSpacing: 0.15,
                                   fontWeight: FontWeight.w600,
                                   color: Color(0xDE05046A),
                                 ),
@@ -468,8 +493,7 @@ class _MessageContainerState extends State<MessageContainer> {
           ),
         if (widget.payloadType == PayloadType.gridCarousel)
           Container(
-            // margin: EdgeInsets.only(top: 12),
-
+            padding: EdgeInsets.only(left: 12),
             margin: EdgeInsets.symmetric(
               vertical: verticalSpacing,
             ),
@@ -544,7 +568,10 @@ class _MessageContainerState extends State<MessageContainer> {
           ),
         if (widget.payloadType == PayloadType.video)
           Padding(
-            padding: const EdgeInsets.only(top: 8.0, bottom: 16.0),
+            padding: EdgeInsets.only(
+                top: verticalSpacing,
+                bottom: verticalSpacing,
+                right: verticalSpacing),
             child: SizedBox(
               height: 240,
               child: PhysicalModel(
@@ -585,7 +612,10 @@ class _MessageContainerState extends State<MessageContainer> {
           ),
         if (widget.payloadType == PayloadType.card)
           Container(
-            margin: EdgeInsets.only(top: 16.0, bottom: 8.0),
+            margin: EdgeInsets.only(
+                top: verticalSpacing,
+                bottom: verticalSpacing,
+                right: verticalSpacing),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(15.0),
@@ -842,9 +872,13 @@ class _MessageContainerState extends State<MessageContainer> {
           parse: widget.parsePatterns,
           text: widget.message.text,
           style: TextStyle(
-            color: widget.message.user.color ??
-                (widget.isUser ? Colors.white70 : Colors.black87),
-          ),
+              color: Color(0xFFFFFFFF),
+              // widget.message.user.color ??
+              //     (widget.isUser ? Colors.white70 : Colors.black87),
+              fontSize: 15,
+              fontWeight: FontWeight.w400,
+              letterSpacing: 0.5,
+              fontFamily: 'SF-UI-Display-Regular'),
         );
   }
 

@@ -207,29 +207,33 @@ class _MessageListViewState extends State<MessageListView> {
                                           : MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: <Widget>[
-                                    Padding(
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: constraints.maxWidth * 0.02,
-                                      ),
-                                      // child:
-                                      // Opacity(
-                                      //   opacity:
-                                      //       (widget.showAvatarForEverMessage! ||
-                                      //                   showAvatar) &&
-                                      //               widget.messages[i].user
-                                      //                       .uid !=
-                                      //                   widget.user.uid
-                                      //           ? 1
-                                      //           : 0,
-                                      //   child: AvatarContainer(
-                                      //     user: widget.messages[i].user,
-                                      //     onPress: widget.onPressAvatar,
-                                      //     onLongPress: widget.onLongPressAvatar,
-                                      //     avatarBuilder: widget.avatarBuilder,
-                                      //     avatarMaxSize: widget.avatarMaxSize,
-                                      //   ),
-                                      // ),
-                                    ),
+                                    Padding(padding: EdgeInsets.zero
+
+                                        //Padding(padding: EdgeInsets.only(left: 6)
+
+                                        // EdgeInsets.symmetric(
+
+                                        //   horizontal: constraints.maxWidth * 0.02,
+                                        // ),
+                                        // child:
+                                        // Opacity(
+                                        //   opacity:
+                                        //       (widget.showAvatarForEverMessage! ||
+                                        //                   showAvatar) &&
+                                        //               widget.messages[i].user
+                                        //                       .uid !=
+                                        //                   widget.user.uid
+                                        //           ? 1
+                                        //           : 0,
+                                        //   child: AvatarContainer(
+                                        //     user: widget.messages[i].user,
+                                        //     onPress: widget.onPressAvatar,
+                                        //     onLongPress: widget.onLongPressAvatar,
+                                        //     avatarBuilder: widget.avatarBuilder,
+                                        //     avatarMaxSize: widget.avatarMaxSize,
+                                        //   ),
+                                        // ),
+                                        ),
                                     Expanded(
                                       child: GestureDetector(
                                         onLongPress: () {
