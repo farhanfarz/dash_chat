@@ -161,82 +161,100 @@ class _MessageContainerState extends State<MessageContainer> {
             constraints: BoxConstraints(
               maxWidth: constraints.maxWidth * 0.8,
             ),
-            child: Container(
-              decoration: widget.messageDecorationBuilder
-                      ?.call(widget.message, widget.isUser) ??
-                  widget.messageContainerDecoration?.copyWith(
-                    color: widget.message.user.containerColor != null
-                        ? widget.message.user.containerColor
-                        : widget.messageContainerDecoration.color,
-                  ) ??
-                  BoxDecoration(
-                    color: widget.message.user.containerColor ??
-                        (widget.isUser
-                            ? Theme.of(context).accentColor
-                            : Color.fromRGBO(225, 225, 225, 1)),
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-              margin: EdgeInsets.only(
-                bottom: 5.0,
-              ),
-              padding: widget.messagePadding,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: widget.isUser
-                    ? CrossAxisAlignment.end
-                    : CrossAxisAlignment.start,
-                children: <Widget>[
-                  // if (this.textBeforeImage)
-                  //   _buildMessageText()
-                  // else
-                  //   _buildMessageImage(),
-                  // if (this.textBeforeImage)
-                  //   _buildMessageImage()
-                  // else
-                  _buildMessageText(),
-
-                  if (widget.messageButtonsBuilder != null)
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: widget.isUser
-                          ? MainAxisAlignment.end
-                          : MainAxisAlignment.start,
-                      children: widget.messageButtonsBuilder(widget.message),
-                      mainAxisSize: MainAxisSize.min,
-                    ),
-                  widget.messageTimeBuilder?.call(
-                        widget.timeFormat?.format(widget.message.createdAt) ??
-                            DateFormat('HH:mm:ss')
-                                .format(widget.message.createdAt),
-                        widget.message,
+            child: Stack(
+              children: [
+                Container(
+                  //color: Colors.red,
+                  decoration: widget.messageDecorationBuilder
+                          ?.call(widget.message, widget.isUser) ??
+                      widget.messageContainerDecoration?.copyWith(
+                        color: widget.message.user.containerColor != null
+                            ? widget.message.user.containerColor
+                            : widget.messageContainerDecoration.color,
                       ) ??
-                      Padding(
-                        padding: EdgeInsets.only(top: 5.0),
-                        child: Text(
-                          widget.timeFormat != null
-                              ? widget.timeFormat
-                                  .format(widget.message.createdAt)
-                              : DateFormat('HH:mm:ss')
-                                  .format(widget.message.createdAt),
-                          style: TextStyle(
-                            fontSize: 10.0,
-                            color: widget.message.user.color ??
-                                (widget.isUser
-                                    ? Colors.white70
-                                    : Colors.black87),
-                          ),
+                      BoxDecoration(
+                        color: widget.message.user.containerColor ??
+                            (widget.isUser
+                                ? Theme.of(context).accentColor
+                                : Color.fromRGBO(225, 225, 225, 1)),
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                  margin: EdgeInsets.only(
+                    bottom: 0.0,
+                  ),
+                  padding: widget.messagePadding,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: widget.isUser
+                        ? CrossAxisAlignment.end
+                        : CrossAxisAlignment.start,
+                    children: <Widget>[
+                      // if (this.textBeforeImage)
+                      //   _buildMessageText()
+                      // else
+                      //   _buildMessageImage(),
+                      // if (this.textBeforeImage)
+                      //   _buildMessageImage()
+                      // else
+                      _buildMessageText(),
+
+                      if (widget.messageButtonsBuilder != null)
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: widget.isUser
+                              ? MainAxisAlignment.end
+                              : MainAxisAlignment.start,
+                          children:
+                              widget.messageButtonsBuilder(widget.message),
+                          mainAxisSize: MainAxisSize.min,
                         ),
-                      )
-                ],
-              ),
+                      widget.messageTimeBuilder?.call(
+                            widget.timeFormat
+                                    ?.format(widget.message.createdAt) ??
+                                DateFormat('HH:mm:ss')
+                                    .format(widget.message.createdAt),
+                            widget.message,
+                          ) ??
+                          Padding(
+                            padding: EdgeInsets.only(top: 5.0),
+                            child: Text(
+                              widget.timeFormat != null
+                                  ? widget.timeFormat
+                                      .format(widget.message.createdAt)
+                                  : DateFormat('HH:mm:ss')
+                                      .format(widget.message.createdAt),
+                              style: TextStyle(
+                                fontSize: 10.0,
+                                color: widget.message.user.color ??
+                                    (widget.isUser
+                                        ? Colors.white70
+                                        : Colors.black87),
+                              ),
+                            ),
+                          )
+                    ],
+                  ),
+                ),
+
+                // Positioned(
+                //     // left: 0,
+                //     // bottom: 20,
+                //     child: SizedBox(
+                //   height: 30,
+                //   width: 30,
+                //   child: Image.asset('assets/images/chatbot_bubble.png'),
+                // )
+                //     //_buildCircleBubble(16),
+                //     ),
+              ],
             ),
           ),
         _buildMessageImage(),
         if (widget.payloadType == PayloadType.quickReplies)
           Padding(
-            padding: EdgeInsets.only(top: verticalSpacing),
+            padding: EdgeInsets.only(top: 10, bottom: 10),
             child: SizedBox(
-              height: 60,
+              height: 38,
               child: CustomScrollView(
                 scrollDirection: Axis.horizontal,
                 slivers: [
@@ -261,21 +279,28 @@ class _MessageContainerState extends State<MessageContainer> {
                                     widget.onTapReply(reply);
                                   },
                                   child: Container(
-                                    padding: EdgeInsets.all(12.0),
+                                    height: 38,
+                                    // padding: EdgeInsets.all(12.0),
                                     decoration: BoxDecoration(
                                       color: Color(0xFFFDDA25),
                                       borderRadius: BorderRadius.circular(12.0),
                                     ),
                                     margin: EdgeInsets.only(
-                                      right: 16.0,
-                                      bottom: 16.0,
+                                      right: 10.0,
                                     ),
-                                    child: Text(
-                                      reply.title ?? '',
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'SF-UI-Display-Medium',
+                                    child: Center(
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 8.0, right: 8),
+                                        child: Text(
+                                          reply.title ?? '',
+                                          // textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: 'SF-UI-Display-Medium',
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -443,6 +468,8 @@ class _MessageContainerState extends State<MessageContainer> {
           ),
         if (widget.payloadType == PayloadType.gridCarousel)
           Container(
+            // margin: EdgeInsets.only(top: 12),
+
             margin: EdgeInsets.symmetric(
               vertical: verticalSpacing,
             ),
@@ -761,6 +788,16 @@ class _MessageContainerState extends State<MessageContainer> {
     );
   }
 
+  Widget _buildCircleBubble(double size) {
+    return CustomPaint(
+      painter: ChatBubbleTriangle(),
+      child: Container(
+        width: 12,
+        height: 12,
+      ),
+    );
+  }
+
   Widget pauseAndPlay() {
     return Stack(
       children: <Widget>[
@@ -865,5 +902,32 @@ class _PlayPauseOverlay extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+class ChatBubbleTriangle extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    // var paint = Paint()..color = Colors.blue;
+    final paint = Paint()
+      ..shader = ui.Gradient.linear(
+        Offset.fromDirection(1),
+        Offset.fromDirection(2),
+        [
+          Color(0xFF4F6FE8),
+          Color(0xFF5AABE2),
+        ],
+      );
+
+    var path = Path();
+    path.lineTo(-15, 5);
+    path.lineTo(10, 20);
+    path.lineTo(0, 10);
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return true;
   }
 }

@@ -15,6 +15,7 @@ import 'package:ext_video_player/ext_video_player.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 //import 'package:youtube_explode_dart/src/videos/streams/video_quality.dart';
 import 'dart:math';
+import 'dart:ui' as ui;
 
 import 'package:flutter/cupertino.dart';
 import 'package:dash_chat/src/widgets/bot_typing_indicator.dart';

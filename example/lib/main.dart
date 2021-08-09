@@ -279,6 +279,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void onSend(ChatMessage message) {
     print(message.toJson());
+
     // FirebaseFirestore.instance
     //     .collection('messages')
     //     .doc(DateTime.now().millisecondsSinceEpoch.toString())
@@ -325,8 +326,10 @@ class _MyHomePageState extends State<MyHomePage> {
         //   return SizedBox();
         // },
         shouldStartMessagesFromTop: true,
+        isSomeOneTyping: true,
         messageDecorationBuilder: (msg, isUser) {
           // bool isUser = msg.user.uid == '123456789';
+
           BoxDecoration decoration;
           if (isUser ?? false) {
             decoration = BoxDecoration(
@@ -396,22 +399,7 @@ class _MyHomePageState extends State<MyHomePage> {
         //       .values
         //       .toList() : null;
         // },
-        quickReplyBuilder: (Reply reply) {
-          return Container(
-            padding: EdgeInsets.all(12.0),
-            decoration: BoxDecoration(
-              color: Color(0xFFFDDA25),
-              borderRadius: BorderRadius.circular(12.0),
-            ),
-            margin: EdgeInsets.only(
-              left: 16.0,
-              bottom: 16.0,
-            ),
-            child: Text(
-              reply.value ?? '',
-            ),
-          );
-        },
+
         key: _chatViewKey,
         inverted: false,
         onSend: onSend,
@@ -433,7 +421,7 @@ class _MyHomePageState extends State<MyHomePage> {
           print("OnLongPressAvatar: ${user.name}");
         },
         inputMaxLines: 5,
-        messageContainerPadding: EdgeInsets.only(left: 5.0, right: 5.0),
+        // messageContainerPadding: EdgeInsets.only(left: 5.0, right: 5.0),
         alwaysShowSend: true,
         inputTextStyle: TextStyle(fontSize: 16.0),
         inputContainerStyle: BoxDecoration(

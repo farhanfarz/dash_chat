@@ -20,12 +20,13 @@ class ScrollToBottom extends StatelessWidget {
       height: scrollToBottomStyle.height,
       child: RawMaterialButton(
         elevation: 5,
-        fillColor: scrollToBottomStyle.backgroundColor ??
-            Theme.of(context).primaryColor,
+        fillColor: Color(0xFF5AA9E2),
+        //scrollToBottomStyle.backgroundColor ??
+        //  Theme.of(context).primaryColor,
         shape: CircleBorder(),
         child: Icon(
           scrollToBottomStyle.icon ?? Icons.keyboard_arrow_down,
-          color: scrollToBottomStyle.textColor ?? Colors.white,
+          color: scrollToBottomStyle.textColor ?? Colors.black,
         ),
         onPressed: () {
           onScrollToBottomPress?.call() ??

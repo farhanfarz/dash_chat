@@ -80,7 +80,9 @@ class ChatInputToolbar extends StatelessWidget {
 
     return Container(
       height: 50,
-      padding: EdgeInsets.only(left: 10),
+      padding: EdgeInsets.only(
+        left: 10,
+      ),
       //inputToolbarPadding,
       margin: EdgeInsets.only(left: 10, right: 10),
       //inputToolbarMargin,
@@ -103,12 +105,6 @@ class ChatInputToolbar extends StatelessWidget {
                   child: Directionality(
                     textDirection: textDirection,
                     child: TextField(
-                      onTap: () {
-                        // Timer(
-                        //     Duration(milliseconds: 300),
-                        //     () => scrollController.jumpTo(
-                        //         scrollController.position.maxScrollExtent));
-                      },
                       focusNode: focusNode,
                       onChanged: (value) {
                         onTextChange(value);
@@ -152,21 +148,7 @@ class ChatInputToolbar extends StatelessWidget {
                   if (text.length != 0) {
                     await onSend(message);
                     onSendTextfieild();
-                    //        onScrollToBottomPress?.call() ??
-                    // scrollController.animateTo(
-                    //   inverted
-                    //       ? 0.0
-                    //       : scrollController.position.maxScrollExtent + 25.0,
-                    //   duration: const Duration(milliseconds: 300),
-                    //   curve: Curves.easeInOut,
-                    // );
-                    // Timer(Duration(milliseconds: 150), () {
-                    //   scrollController.animateTo(
-                    //     scrollController.position.maxScrollExtent,
-                    //     curve: Curves.easeOut,
-                    //     duration: const Duration(milliseconds: 300),
-                    //   );
-                    // });
+
                     controller.text = "";
 
                     onTextChange("");
@@ -174,7 +156,10 @@ class ChatInputToolbar extends StatelessWidget {
                 })
               else
                 IconButton(
-                  icon: Icon(Icons.send),
+                  icon: Icon(
+                    Icons.send,
+                    color: Color(0xFFFDDA25),
+                  ),
                   onPressed: alwaysShowSend || text.length != 0
                       ? () => _sendMessage(context, message)
                       : null,
@@ -182,7 +167,7 @@ class ChatInputToolbar extends StatelessWidget {
               if (!showTraillingBeforeSend) ...trailling,
             ],
           ),
-          if (inputFooterBuilder != null) inputFooterBuilder()
+           if (inputFooterBuilder != null) inputFooterBuilder()
         ],
       ),
     );

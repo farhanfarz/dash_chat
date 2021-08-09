@@ -46,7 +46,7 @@ class MessageListView extends StatefulWidget {
     this.onLoadEarlier,
     this.defaultLoadCallback,
     this.messageContainerPadding =
-        const EdgeInsets.only(top: 10.0, right: 10.0, left: 10.0),
+        const EdgeInsets.only(top: 0.0, right: 0.0, left: 0.0),
     this.scrollController,
     this.parsePatterns = const [],
     this.messageContainerDecoration,
@@ -73,7 +73,7 @@ class MessageListView extends StatefulWidget {
     this.visible,
     this.showLoadMore,
     this.messageButtonsBuilder,
-    this.messagePadding = const EdgeInsets.all(8.0),
+    this.messagePadding = const EdgeInsets.all(0.0),
     this.textBeforeImage = true,
     this.messageDecorationBuilder,
   });
@@ -196,8 +196,8 @@ class _MessageListViewState extends State<MessageListView> {
                                 ),
                               Padding(
                                 padding: EdgeInsets.only(
-                                  top: first ? 10.0 : 0.0,
-                                  bottom: last ? 10.0 : 0.0,
+                                  top: first ? 0.0 : 0.0,
+                                  bottom: last ? 0.0 : 0.0,
                                 ),
                                 child: Row(
                                   mainAxisAlignment:
@@ -238,32 +238,32 @@ class _MessageListViewState extends State<MessageListView> {
                                             widget.onLongPressMessage(
                                                 widget.messages[i]);
                                           } else {
-                                            showBottomSheet(
-                                                context: context,
-                                                builder: (context) => Container(
-                                                      child: Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.min,
-                                                        children: <Widget>[
-                                                          ListTile(
-                                                            leading: Icon(Icons
-                                                                .content_copy),
-                                                            title: Text(
-                                                                "Copy to clipboard"),
-                                                            onTap: () {
-                                                              Clipboard.setData(
-                                                                  ClipboardData(
-                                                                      text: widget
-                                                                          .messages[
-                                                                              i]
-                                                                          .text));
-                                                              Navigator.pop(
-                                                                  context);
-                                                            },
-                                                          )
-                                                        ],
-                                                      ),
-                                                    ));
+                                            //   showBottomSheet(
+                                            //       context: context,
+                                            //       builder: (context) => Container(
+                                            //             child: Column(
+                                            //               mainAxisSize:
+                                            //                   MainAxisSize.min,
+                                            //               children: <Widget>[
+                                            //                 ListTile(
+                                            //                   leading: Icon(Icons
+                                            //                       .content_copy),
+                                            //                   title: Text(
+                                            //                       "Copy to clipboard"),
+                                            //                   onTap: () {
+                                            //                     Clipboard.setData(
+                                            //                         ClipboardData(
+                                            //                             text: widget
+                                            //                                 .messages[
+                                            //                                     i]
+                                            //                                 .text));
+                                            //                     Navigator.pop(
+                                            //                         context);
+                                            //                   },
+                                            //                 )
+                                            //               ],
+                                            //             ),
+                                            //           ));
                                           }
                                         },
                                         child: widget.messageBuilder != null
@@ -308,7 +308,7 @@ class _MessageListViewState extends State<MessageListView> {
                                                       widget.textBeforeImage,
                                                   messageDecorationBuilder: widget
                                                       .messageDecorationBuilder,
-                                                    onTapReply: widget.onTapReply,
+                                                  onTapReply: widget.onTapReply,
                                                 ),
                                               ),
                                       ),
@@ -338,10 +338,10 @@ class _MessageListViewState extends State<MessageListView> {
                                           ),
                                         ),
                                       )
-                                    else
-                                      SizedBox(
-                                        width: 10.0,
-                                      ),
+                                    // else
+                                    //   SizedBox(
+                                    //     width: 10.0,
+                                    //   ),
                                   ],
                                 ),
                               ),

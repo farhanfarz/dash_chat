@@ -301,8 +301,8 @@ class DashChat extends StatefulWidget {
     this.quickReplyBuilder,
     this.quickReplyScroll = false,
     this.messageContainerPadding = const EdgeInsets.only(
-      left: 2.0,
-      right: 2.0,
+      left: 0.0,
+      right: 0.0,
     ),
     this.scrollController,
     this.inputCursorColor,
@@ -487,6 +487,12 @@ class DashChatState extends State<DashChat> {
                     ? MainAxisAlignment.start
                     : MainAxisAlignment.end,
                 children: <Widget>[
+                  //  Align(
+                  //   alignment: Alignment.bottomLeft,
+                  //   child: TypingIndicator(
+                  //     showIndicator: widget.isSomeOneTyping,
+                  //   ),
+                  // ),
                   MessageListView(
                     avatarMaxSize: widget.avatarMaxSize,
                     messagePadding: widget.messagePadding,
@@ -495,8 +501,8 @@ class DashChatState extends State<DashChat> {
                     showLoadEarlierWidget: widget.showLoadEarlierWidget,
                     onLoadEarlier: widget.onLoadEarlier,
                     defaultLoadCallback: changeDefaultLoadMore,
-                    messageContainerPadding:
-                        widget.messageContainerPadding as EdgeInsets,
+                    messageContainerPadding: EdgeInsets.zero,
+                    // widget.messageContainerPadding as EdgeInsets,
                     scrollController: widget.scrollController != null
                         ? widget.scrollController
                         : scrollController,
@@ -619,7 +625,7 @@ class DashChatState extends State<DashChat> {
                 Positioned(
                   right: widget.scrollToBottomStyle.right,
                   left: widget.scrollToBottomStyle.left,
-                  bottom: widget.scrollToBottomStyle.bottom,
+                  bottom: widget.scrollToBottomStyle.bottom + 25,
                   top: widget.scrollToBottomStyle.top,
                   child: widget.scrollToBottomWidget != null
                       ? widget.scrollToBottomWidget()

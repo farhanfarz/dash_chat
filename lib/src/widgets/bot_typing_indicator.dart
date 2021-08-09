@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:dash_chat/dash_chat.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -61,7 +62,7 @@ class _TypingIndicatorState extends State<TypingIndicator>
       reverseCurve: const Interval(0.0, 1.0, curve: Curves.easeOut),
     ).drive(Tween<double>(
       begin: 0.0,
-      end: 60.0,
+      end: 40.0,
     ));
 
     _smallBubbleAnimation = CurvedAnimation(
@@ -127,7 +128,7 @@ class _TypingIndicatorState extends State<TypingIndicator>
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.only(top: 5.0),
       child: AnimatedBuilder(
         animation: _indicatorSpaceAnimation,
         builder: (context, child) {
@@ -138,22 +139,22 @@ class _TypingIndicatorState extends State<TypingIndicator>
         },
         child: Stack(
           children: [
-            _buildAnimatedBubble(
-              animation: _smallBubbleAnimation,
-              left: 8,
-              bottom: 8,
-              bubble: _buildCircleBubble(8),
-            ),
-            _buildAnimatedBubble(
-              animation: _mediumBubbleAnimation,
-              left: 10,
-              bottom: 10,
-              bubble: _buildCircleBubble(16),
-            ),
+            // _buildAnimatedBubble(
+            //   animation: _smallBubbleAnimation,
+            //   left: 8,
+            //   bottom: 8,
+            //   bubble: _buildCircleBubble(8),
+            // ),
+            // _buildAnimatedBubble(
+            //   animation: _mediumBubbleAnimation,
+            //   left: 15,
+            //   bottom: 20,
+            //   bubble: _buildCircleBubble(16),
+            // ),
             _buildAnimatedBubble(
               animation: _largeBubbleAnimation,
-              left: 12,
-              bottom: 12,
+              left: 10,
+              bottom: 10,
               bubble: _buildStatusBubble(),
             ),
           ],
@@ -186,40 +187,34 @@ class _TypingIndicatorState extends State<TypingIndicator>
   }
 
   Widget _buildCircleBubble(double size) {
-    return Container(
-      width: size,
-      height: size,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-       // borderRadius: BorderRadius.circular(15),
-        gradient: LinearGradient(
-          colors: [
-            widget.bubbleFirstColor,
-            widget.bubbleSecondColor
-          ],
-          begin: Alignment.bottomLeft,
-          end: Alignment.topRight,
-          stops: [0.241, 0.5981],
+    return CustomPaint(
+      painter: ChatBubbleTriangle(),
+      child: Container(
+        width: size,
+        height: size,
+        decoration: BoxDecoration(
+          //shape: BoxShape.,
+          // borderRadius: BorderRadius.circular(15),
+          gradient: LinearGradient(
+            colors: [widget.bubbleFirstColor, widget.bubbleSecondColor],
+            begin: Alignment.bottomLeft,
+            end: Alignment.topRight,
+            stops: [0.241, 0.5981],
+          ),
         ),
-        
       ),
     );
   }
 
   Widget _buildStatusBubble() {
     return Container(
-      width: 85,
-      height: 44,
+      width: 80,
+      height: 30,
       padding: const EdgeInsets.symmetric(horizontal: 8),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
+        borderRadius: BorderRadius.circular(10),
         gradient: LinearGradient(
-          colors: [
-            widget.bubbleFirstColor,
-            widget.bubbleSecondColor
-            // const Color(0xFF4F6FE8),
-            // const Color(0xFF5AABE2),
-          ],
+          colors: [widget.bubbleFirstColor, widget.bubbleSecondColor],
           begin: Alignment.bottomLeft,
           end: Alignment.topRight,
           stops: [0.241, 0.5981],
