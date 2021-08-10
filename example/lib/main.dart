@@ -88,7 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ],
     ),
     ChatMessage(
-      text: "This is a buttons reply example.",
+      text: "This is a buttons reply example. This is a buttons reply example.",
       user: ChatUser(
         name: "Mrfatty",
         uid: "25649654",

@@ -160,7 +160,6 @@ class _MessageContainerState extends State<MessageContainer> {
     //(size.height - kToolbarHeight - 24) / 2;
     final double itemWidth = size.width / 2;
 
-    final double itemWidthLocation = size.width / 4;
 
     return Column(
       crossAxisAlignment:
@@ -169,15 +168,15 @@ class _MessageContainerState extends State<MessageContainer> {
         if (widget.message.text != null && widget.message.text.isNotEmpty)
           ConstrainedBox(
             constraints: BoxConstraints(
-                // maxWidth: constraints.maxWidth * 0.8,
-                ),
+              maxWidth: constraints.maxWidth * 0.8,
+            ),
             child: Stack(
               children: [
                 Container(
                   //color: Colors.red,
 
                   margin:
-                      EdgeInsets.only(bottom: 4, left: verticalSpacing, top: 4),
+                      EdgeInsets.only(bottom: 4, left: verticalSpacing, top: 4, right: verticalSpacing),
                   padding: EdgeInsets.fromLTRB(8.0, 14.0, 8.0, 14.0),
                   decoration: widget.messageDecorationBuilder
                           ?.call(widget.message, widget.isUser) ??
