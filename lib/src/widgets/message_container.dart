@@ -10,6 +10,7 @@ enum PayloadType {
   quickReplies,
   video,
   card,
+  location
 }
 
 class MessageContainer extends StatefulWidget {
@@ -158,6 +159,8 @@ class _MessageContainerState extends State<MessageContainer> {
     //(size.height - kToolbarHeight - 24) / 2;
     final double itemWidth = size.width / 2;
 
+    final double itemWidthLocation = size.width / 4;
+
     return Column(
       crossAxisAlignment:
           widget.isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
@@ -196,11 +199,11 @@ class _MessageContainerState extends State<MessageContainer> {
                         ? CrossAxisAlignment.end
                         : CrossAxisAlignment.start,
                     children: <Widget>[
-                      // if (this.textBeforeImage)
+                      // if (widget.textBeforeImage)
                       //   _buildMessageText()
                       // else
                       //   _buildMessageImage(),
-                      // if (this.textBeforeImage)
+                      // if (widget.textBeforeImage)
                       //   _buildMessageImage()
                       // else
                       _buildMessageText(),
@@ -539,6 +542,7 @@ class _MessageContainerState extends State<MessageContainer> {
                       ),
                       title: Text(
                         item.title,
+                        maxLines: 2,
                         style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w600,
@@ -550,6 +554,98 @@ class _MessageContainerState extends State<MessageContainer> {
                         padding: EdgeInsets.only(top: 8),
                         child: Text(
                           item.value ?? '',
+                          maxLines: 2,
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500,
+                            letterSpacing: 0.4,
+                            color: Color(0xDE05046A),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        if (widget.payloadType == PayloadType.location)
+          Container(
+            padding: EdgeInsets.only(
+              left: 12,
+            ),
+            margin: EdgeInsets.symmetric(
+              vertical: verticalSpacing,
+            ),
+            width: double.infinity,
+            height: 340,
+            child: GridView.builder(
+              physics: ClampingScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              itemCount: widget.buttons.length,
+              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 84,
+                childAspectRatio: 0.25,
+                //childAspectRatio: (itemWidthLocation / 350),
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+              ),
+              itemBuilder: (context, index) {
+                var item = widget.buttons[index];
+                return GestureDetector(
+                  onTap: () {
+                    SystemChannels.textInput.invokeMethod('TextInput.hide');
+
+                    widget.onTapReply(item);
+                  },
+                  child: Container(
+                    // padding: EdgeInsets.only(bottom: 20),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(15),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color(0xFFD2DEE2).withOpacity(0.4),
+                          blurRadius: 30.0, // soften the shadow
+                          spreadRadius: 0.0, //extend the shadow
+                          offset: Offset(
+                            0.0, // Move to right 10  horizontally
+                            8.0, // Move to bottom 10 Vertically
+                          ),
+                        ),
+                      ],
+                    ),
+                    //color: Colors.white,
+                    alignment: Alignment.center,
+                    child: ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      leading: Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Image.network(
+                          item.iconPath ?? '',
+                          height: 44.0,
+                          width: 44.0,
+                        ),
+                      ),
+                      title: Text(
+                        item.title,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: 0.15,
+                          color: Color(0xDE05046A),
+                        ),
+                      ),
+                      subtitle: Container(
+                        padding: EdgeInsets.only(
+                          top: 5,
+                        ),
+                        child: Text(
+                          item.value ?? '',
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
                           style: TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.w500,
@@ -869,6 +965,12 @@ class _MessageContainerState extends State<MessageContainer> {
             fontWeight: FontWeight.w400,
           ),
         );
+    // Align(
+    //   alignment: Alignment.bottomLeft,
+    //   child: TypingIndicator(
+    //     showIndicator: isSomeOneTyping,
+    //   ),
+    // );
   }
 
   Widget _buildMessageImage() {

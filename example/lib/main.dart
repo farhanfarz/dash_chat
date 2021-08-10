@@ -63,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
       buttons: <Reply>[
         Reply(
           title: "How to",
-          value: "How to",
+          value: "how to",
           iconPath:
               "https://silxdigital.com/wp-content/uploads/2019/09/digital-ads-promo-icon.png",
         ),
@@ -153,11 +153,12 @@ class _MyHomePageState extends State<MyHomePage> {
         uid: "25649654",
       ),
       createdAt: DateTime.now(),
-      payloadType: PayloadType.gridCarousel,
+      payloadType: PayloadType.location,
       buttons: <Reply>[
         Reply(
-          title: "How to",
-          value: "How to",
+          title: "Alam Supermarket Branch",
+          value:
+              "Shop No. 2, Plot No. 3495 Ground Floor, Hamad Sultan Mohamed Sultan Al Owais, Daid Road, Al Sajja Industrial Area, Sharjah",
           iconPath:
               "https://silxdigital.com/wp-content/uploads/2019/09/digital-ads-promo-icon.png",
         ),

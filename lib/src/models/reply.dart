@@ -22,6 +22,8 @@ class Reply {
 
   Rate rateObject;
 
+  String address;
+
   Function onTapReply;
 
   Reply({
@@ -33,6 +35,7 @@ class Reply {
     this.src,
     this.rateObject,
     this.onTapReply,
+    this.address,
   }) {
     this.messageId = messageId ?? Uuid().v4().toString();
   }
@@ -45,6 +48,7 @@ class Reply {
     imagePath = json['imagePath'];
     src = json['src'];
     rateObject = json['rateObject'];
+    address = json['address'];
   }
 
   Map<String, dynamic> toJson() {
@@ -57,6 +61,8 @@ class Reply {
     data['imagePath'] = imagePath;
     data['src'] = src;
     data['rateObject'] = rateObject;
+    data['address'] = address;
+
 
     return data;
   }
