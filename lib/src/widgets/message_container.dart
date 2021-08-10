@@ -10,7 +10,8 @@ enum PayloadType {
   quickReplies,
   video,
   card,
-  location
+  location,
+  loading,
 }
 
 class MessageContainer extends StatefulWidget {
@@ -901,7 +902,8 @@ class _MessageContainerState extends State<MessageContainer> {
                 ],
               ),
             ),
-          )
+          ),
+        if (widget.payloadType == PayloadType.loading) _buildLoadingMessage()
       ],
     );
   }
@@ -965,12 +967,15 @@ class _MessageContainerState extends State<MessageContainer> {
             fontWeight: FontWeight.w400,
           ),
         );
-    // Align(
-    //   alignment: Alignment.bottomLeft,
-    //   child: TypingIndicator(
-    //     showIndicator: isSomeOneTyping,
-    //   ),
-    // );
+  }
+
+  Widget _buildLoadingMessage() {
+    return Align(
+      alignment: Alignment.bottomLeft,
+      child: TypingIndicator(
+        showIndicator: widget.isSomeoneTyping,
+      ),
+    );
   }
 
   Widget _buildMessageImage() {
