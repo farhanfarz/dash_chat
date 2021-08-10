@@ -536,10 +536,14 @@ class _MessageContainerState extends State<MessageContainer> {
                     //color: Colors.white,
                     alignment: Alignment.center,
                     child: ListTile(
-                      leading: Image.network(
-                        item.iconPath ?? '',
+                      leading: SizedBox(
                         height: 44.0,
                         width: 44.0,
+                        child: Image.network(
+                          item.iconPath ?? '',
+                          height: 44.0,
+                          width: 44.0,
+                        ),
                       ),
                       title: Text(
                         item.title,
@@ -622,10 +626,14 @@ class _MessageContainerState extends State<MessageContainer> {
                       contentPadding: EdgeInsets.zero,
                       leading: Padding(
                         padding: const EdgeInsets.only(left: 8.0),
-                        child: Image.network(
-                          item.iconPath ?? '',
+                        child: SizedBox(
                           height: 44.0,
                           width: 44.0,
+                          child: Image.network(
+                            item.iconPath ?? '',
+                            height: 44.0,
+                            width: 44.0,
+                          ),
                         ),
                       ),
                       title: Text(
