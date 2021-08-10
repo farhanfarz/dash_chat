@@ -615,7 +615,7 @@ class DashChatState extends State<DashChat> {
                       reverse: widget.inverted,
                       onSendTextfieild: () {
                         scrollController.animateTo(
-                          scrollController.position.maxScrollExtent + 25.0,
+                          scrollController.position.maxScrollExtent + 30.0,
                           duration: const Duration(milliseconds: 300),
                           curve: Curves.easeInOut,
                         );

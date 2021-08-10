@@ -152,7 +152,7 @@ class ChatInputToolbar extends StatelessWidget {
               sendButtonBuilder(() async {
                 if (text.length != 0) {
                   await onSend(message);
-                  onSendTextfieild();
+                  //  onSendTextfieild();
 
                   controller.text = "";
 
