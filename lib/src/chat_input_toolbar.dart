@@ -199,11 +199,13 @@ class ChatInputToolbar extends StatelessWidget {
       // FocusScope.of(context).requestFocus(focusNode);
       SystemChannels.textInput.invokeMethod('TextInput.hide');
 
-      Timer(Duration(seconds: 1), () {
-        onSendTextfieild();
-      });
+      // Timer(Duration(seconds: 1), () {
+      //   onSendTextfieild();
+      // });
 
       await onSend(message);
+
+       onSendTextfieild();
 
       controller.text = "";
 
