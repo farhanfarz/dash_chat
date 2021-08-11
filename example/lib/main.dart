@@ -157,14 +157,14 @@ class _MyHomePageState extends State<MyHomePage> {
       buttons: <Reply>[
         Reply(
           title: "Alam Supermarket Branch",
-          value:
+          address:
               "Shop No. 2, Plot No. 3495 Ground Floor, Hamad Sultan Mohamed Sultan Al Owais, Daid Road, Al Sajja Industrial Area, Sharjah",
           iconPath:
               "https://silxdigital.com/wp-content/uploads/2019/09/digital-ads-promo-icon.png",
         ),
         Reply(
           title: "Check rates",
-          value: "Check rates",
+          address: "Check rates",
           iconPath:
               "https://silxdigital.com/wp-content/uploads/2019/09/digital-ads-promo-icon.png",
         ),

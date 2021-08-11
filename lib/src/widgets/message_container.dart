@@ -160,7 +160,6 @@ class _MessageContainerState extends State<MessageContainer> {
     //(size.height - kToolbarHeight - 24) / 2;
     final double itemWidth = size.width / 2;
 
-
     return Column(
       crossAxisAlignment:
           widget.isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
@@ -175,8 +174,11 @@ class _MessageContainerState extends State<MessageContainer> {
                 Container(
                   //color: Colors.red,
 
-                  margin:
-                      EdgeInsets.only(bottom: 4, left: verticalSpacing, top: 4, right: verticalSpacing),
+                  margin: EdgeInsets.only(
+                      bottom: 4,
+                      left: verticalSpacing,
+                      top: 4,
+                      right: verticalSpacing),
                   padding: EdgeInsets.fromLTRB(8.0, 14.0, 8.0, 14.0),
                   decoration: widget.messageDecorationBuilder
                           ?.call(widget.message, widget.isUser) ??
@@ -624,41 +626,49 @@ class _MessageContainerState extends State<MessageContainer> {
                     child: ListTile(
                       contentPadding: EdgeInsets.zero,
                       leading: Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
+                        padding: EdgeInsets.only(left: 8.0),
                         child: SizedBox(
-                          height: 44.0,
-                          width: 44.0,
+                          height: 30.0,
+                          width: 30.0,
                           child: Image.network(
                             item.iconPath ?? '',
-                            height: 44.0,
-                            width: 44.0,
+                            height: 30.0,
+                            width: 30.0,
                           ),
                         ),
                       ),
-                      title: Text(
-                        item.title,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w600,
-                          letterSpacing: 0.15,
-                          color: Color(0xDE05046A),
-                        ),
-                      ),
-                      subtitle: Container(
-                        padding: EdgeInsets.only(
-                          top: 5,
-                        ),
+                      title: Padding(
+                        padding: EdgeInsets.only(right: 5.0),
                         child: Text(
-                          item.value ?? '',
+                          item.title,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
                           style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w500,
-                            letterSpacing: 0.4,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 0.15,
                             color: Color(0xDE05046A),
+                          ),
+                        ),
+                      ),
+                      subtitle: Padding(
+                        padding: EdgeInsets.only(
+                          right: 5,
+                        ),
+                        child: Container(
+                          padding: EdgeInsets.only(
+                            top: 5,
+                          ),
+                          child: Text(
+                            item.address ?? '',
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 2,
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500,
+                              letterSpacing: 0.4,
+                              color: Color(0xDE05046A),
+                            ),
                           ),
                         ),
                       ),
