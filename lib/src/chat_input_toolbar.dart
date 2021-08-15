@@ -152,7 +152,7 @@ class ChatInputToolbar extends StatelessWidget {
               sendButtonBuilder(() async {
                 if (text.length != 0) {
                   await onSend(message);
-                  //  onSendTextfieild();
+                  onSendTextfieild();
 
                   controller.text = "";
 
@@ -160,14 +160,19 @@ class ChatInputToolbar extends StatelessWidget {
                 }
               })
             else
-              Opacity(
-                opacity: isEnableSend ? 1 : 0.4,
-                child: FadeInImage.memoryNetwork(
-                  height: 30,
-                  width: 30,
-                  fit: BoxFit.contain,
-                  placeholder: kTransparentImage,
-                  image: 'https://i.postimg.cc/cCwNHNbN/Send.png' ?? '',
+              GestureDetector(
+                onTap: () {
+                  _sendMessage(context, message);
+                },
+                child: Opacity(
+                  opacity: isEnableSend ? 1 : 0.4,
+                  child: FadeInImage.memoryNetwork(
+                    height: 30,
+                    width: 30,
+                    fit: BoxFit.contain,
+                    placeholder: kTransparentImage,
+                    image: 'https://i.postimg.cc/cCwNHNbN/Send.png' ?? '',
+                  ),
                 ),
               ),
 
