@@ -109,7 +109,7 @@ class MessageContainer extends StatefulWidget {
 
 class _MessageContainerState extends State<MessageContainer> {
   final List dummyData = List.generate(50, (index) => '$index');
-  VideoPlayerController _controller;
+  // VideoPlayerController _controller;
   Future<void> _initializeVideoPlayerFuture;
 
   double verticalSpacing = 12.0;
@@ -119,32 +119,32 @@ class _MessageContainerState extends State<MessageContainer> {
   void initState() {
     super.initState();
 
-    if (widget.payloadType == PayloadType.video)
-      _controller =
-          createMyVideoControllerUsingUrl(widget.buttons.first.src ?? '');
+    // if (widget.payloadType == PayloadType.video)
+    //   _controller =
+    //       createMyVideoControllerUsingUrl(widget.buttons.first.src ?? '');
   }
 
-  VideoPlayerController createMyVideoControllerUsingUrl(String url) {
-    VideoPlayerController _controller = VideoPlayerController.network(
-      url,
-      //youtubeVideoQuality: VideoQuality.high720,
-    );
-    _controller.addListener(() {
-      setState(() {});
-    });
-    _controller.setLooping(false);
-    _controller.initialize().then((_) => setState(() {
-          _initializeVideoPlayerFuture = _controller.initialize();
-        }));
-    _controller.play();
+  // VideoPlayerController createMyVideoControllerUsingUrl(String url) {
+  //   VideoPlayerController _controller = VideoPlayerController.network(
+  //     url,
+  //     //youtubeVideoQuality: VideoQuality.high720,
+  //   );
+  //   _controller.addListener(() {
+  //     setState(() {});
+  //   });
+  //   _controller.setLooping(false);
+  //   _controller.initialize().then((_) => setState(() {
+  //         _initializeVideoPlayerFuture = _controller.initialize();
+  //       }));
+  //   _controller.play();
 
-    return _controller;
-  }
+  //   return _controller;
+  // }
 
   @override
   void dispose() {
     super.dispose();
-    _controller?.dispose();
+    // _controller?.dispose();
   }
 
   @override
@@ -692,28 +692,29 @@ class _MessageContainerState extends State<MessageContainer> {
                     child: FutureBuilder(
                       future: _initializeVideoPlayerFuture,
                       builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.done) {
-                          // If the VideoPlayerController has finished initialization, use
-                          // the data it provides to limit the aspect ratio of the VideoPlayer.
-                          return AspectRatio(
-                              aspectRatio: _controller.value.aspectRatio,
-                              child: Stack(
-                                  alignment: Alignment.bottomCenter,
-                                  children: <Widget>[
-                                    VideoPlayer(_controller),
-                                    ClosedCaption(
-                                        text: _controller.value.caption.text),
-                                    _PlayPauseOverlay(controller: _controller),
-                                    VideoProgressIndicator(
-                                      _controller,
-                                      allowScrubbing: true,
-                                    ),
-                                  ]));
-                        } else {
-                          // If the VideoPlayerController is still initializing, show a
-                          // loading spinner.
-                          return Center(child: CircularProgressIndicator());
-                        }
+                        return Center(child: CircularProgressIndicator());
+                        // if (snapshot.connectionState == ConnectionState.done) {
+                        //   // If the VideoPlayerController has finished initialization, use
+                        //   // the data it provides to limit the aspect ratio of the VideoPlayer.
+                        //   return AspectRatio(
+                        //       aspectRatio: _controller.value.aspectRatio,
+                        //       child: Stack(
+                        //           alignment: Alignment.bottomCenter,
+                        //           children: <Widget>[
+                        //             VideoPlayer(_controller),
+                        //             ClosedCaption(
+                        //                 text: _controller.value.caption.text),
+                        //             _PlayPauseOverlay(controller: _controller),
+                        //             VideoProgressIndicator(
+                        //               _controller,
+                        //               allowScrubbing: true,
+                        //             ),
+                        //           ]));
+                        // } else {
+                        //   // If the VideoPlayerController is still initializing, show a
+                        //   // loading spinner.
+                        //   return Center(child: CircularProgressIndicator());
+                        // }
                       },
                     )),
               ),
@@ -935,42 +936,42 @@ class _MessageContainerState extends State<MessageContainer> {
     );
   }
 
-  Widget pauseAndPlay() {
-    return Stack(
-      children: <Widget>[
-        AnimatedSwitcher(
-          duration: Duration(milliseconds: 44),
-          reverseDuration: Duration(milliseconds: 200),
-          child: Opacity(
-            opacity: (_controller.value.isPlaying ?? false) ? 0 : 1,
-            child: Align(
-              alignment: Alignment.center,
-              child: Container(
-                // height: 50,
-                // width: 50,
-                child: Icon(
-                  (_controller.value.isPlaying ?? false)
-                      ? Icons.pause
-                      : Icons.play_arrow,
-                  color: Colors.white,
-                  size: 50,
-                ),
-              ),
-            ),
-          ),
-        ),
-        GestureDetector(
-          onTap: () {
-            setState(() {
-              (_controller.value.isPlaying ?? false)
-                  ? _controller?.pause()
-                  : _controller?.play();
-            });
-          },
-        ),
-      ],
-    );
-  }
+  // Widget pauseAndPlay() {
+  //   return Stack(
+  //     children: <Widget>[
+  //       AnimatedSwitcher(
+  //         duration: Duration(milliseconds: 44),
+  //         reverseDuration: Duration(milliseconds: 200),
+  //         child: Opacity(
+  //           opacity: (_controller.value.isPlaying ?? false) ? 0 : 1,
+  //           child: Align(
+  //             alignment: Alignment.center,
+  //             child: Container(
+  //               // height: 50,
+  //               // width: 50,
+  //               child: Icon(
+  //                 (_controller.value.isPlaying ?? false)
+  //                     ? Icons.pause
+  //                     : Icons.play_arrow,
+  //                 color: Colors.white,
+  //                 size: 50,
+  //               ),
+  //             ),
+  //           ),
+  //         ),
+  //       ),
+  //       GestureDetector(
+  //         onTap: () {
+  //           setState(() {
+  //             (_controller.value.isPlaying ?? false)
+  //                 ? _controller?.pause()
+  //                 : _controller?.play();
+  //           });
+  //         },
+  //       ),
+  //     ],
+  //   );
+  // }
 
   Widget _buildMessageText() {
     return widget.messageTextBuilder
@@ -1015,9 +1016,12 @@ class _MessageContainerState extends State<MessageContainer> {
 }
 
 class _PlayPauseOverlay extends StatelessWidget {
-  const _PlayPauseOverlay({Key key, this.controller}) : super(key: key);
+  const _PlayPauseOverlay({
+    Key key,
+    // this.controller,
+  }) : super(key: key);
 
-  final VideoPlayerController controller;
+  // final VideoPlayerController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -1026,7 +1030,8 @@ class _PlayPauseOverlay extends StatelessWidget {
         AnimatedSwitcher(
           duration: Duration(milliseconds: 50),
           reverseDuration: Duration(milliseconds: 200),
-          child: controller.value.isPlaying
+          // child: controller.value.isPlaying
+          child: false
               ? SizedBox.shrink()
               : Container(
                   color: Colors.black26,
@@ -1039,14 +1044,14 @@ class _PlayPauseOverlay extends StatelessWidget {
                   ),
                 ),
         ),
-        GestureDetector(
-          onTap: () {
-            if (controller.value.position == controller.value.duration) {
-              controller.initialize();
-            }
-            controller.value.isPlaying ? controller.pause() : controller.play();
-          },
-        ),
+        // GestureDetector(
+        //   onTap: () {
+        //     if (controller.value.position == controller.value.duration) {
+        //       controller.initialize();
+        //     }
+        //     controller.value.isPlaying ? controller.pause() : controller.play();
+        //   },
+        // ),
       ],
     );
   }
